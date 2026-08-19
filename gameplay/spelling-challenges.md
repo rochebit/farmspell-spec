@@ -47,3 +47,8 @@ This document defines the rules governing spelling prompts, input mechanisms, re
   - **Input Lock**: Text input is completely locked and disabled while the word is displayed on screen. The child CANNOT type or enter letters until the 1.5-second word display finishes and disappears.
   - Once the word display disappears, text input unlocks so the child can type the word.
   - Retries remain **unlimited**; the child can keep trying until they successfully type the word.
+
+### 3.3 Challenge Cancellation
+- **3.3.1**: If the player voluntarily cancels or exits an active Spelling Challenge modal before completing the word, the modal closes immediately.
+- **3.3.2**: Cancelling a challenge costs **1 Action Point** (`dailyActionsRemaining` decrements by 1).
+- **3.3.3**: The target farm plot remains in its previous state without changes.
