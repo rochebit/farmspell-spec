@@ -23,11 +23,12 @@ stateDiagram-v2
 | Initial State | Event / Trigger | Guard Condition | Next State | Actions / Side Effects |
 | :--- | :--- | :--- | :--- | :--- |
 | **Empty** | `PLANT_SEED` | `seedCount > 0` & `actionsRemaining > 0` & `SpellingResolved` | **Planted** | Deduct 1 Seed, Deduct 1 Action Point, Set `cropId`. |
-| **Planted** | `WATER_CROP` | `wateredToday == false` & `actionsRemaining > 0` & `SpellingResolved` | **Growing** | Set `wateredToday = true`, Set `wateredDaysCount = 1`, Deduct 1 Action Point. |
-| **Growing** | `WATER_CROP` | `wateredToday == false` & `actionsRemaining > 0` & `SpellingResolved` | **Growing** | Set `wateredToday = true`, Increment `wateredDaysCount` by 1, Deduct 1 Action Point. |
-| **Growing** | `END_DAY` | `wateredDaysCount == requiredDaysToGrow` | **ReadyToHarvest** | Reset `wateredToday = false`. |
-| **Growing** | `END_DAY` | `wateredToday == false` & `consecutiveUnwateredDays == 1` | **Withered** | Growth progress lost. |
-| **Growing** | `END_DAY` | `wateredToday == false` & `consecutiveUnwateredDays == 0` | **Growing** | Growth paused for 1 day, Set `consecutiveUnwateredDays = 1`. |
+| **Planted** | `WATER_CROP` | `wateredToday == false` & `actionsRemaining > 0` & `SpellingResolved` | **Growing** | Set `wateredToday = true`, Deduct 1 Action Point. |
+| **Growing** | `WATER_CROP` | `wateredToday == false` & `actionsRemaining > 0` & `SpellingResolved` | **Growing** | Set `wateredToday = true`, Deduct 1 Action Point. |
+| **Growing** | `END_DAY` | `wateredToday == true` & `wateredDaysCount + 1 >= requiredDaysToGrow` | **ReadyToHarvest** | Increment `wateredDaysCount` by 1, Reset `consecutiveUnwateredDays = 0`, Reset `wateredToday = false`. |
+| **Growing** | `END_DAY` | `wateredToday == true` & `wateredDaysCount + 1 < requiredDaysToGrow` | **Growing** | Increment `wateredDaysCount` by 1, Reset `consecutiveUnwateredDays = 0`, Reset `wateredToday = false`. |
+| **Growing** | `END_DAY` | `wateredToday == false` & `consecutiveUnwateredDays >= 1` | **Withered** | Set `consecutiveUnwateredDays = 2`, Growth progress lost, Reset `wateredToday = false`. |
+| **Growing** | `END_DAY` | `wateredToday == false` & `consecutiveUnwateredDays == 0` | **Growing** | Growth paused for 1 day, Set `consecutiveUnwateredDays = 1`, Reset `wateredToday = false`. |
 | **ReadyToHarvest** | `HARVEST_CROP` | `actionsRemaining > 0` & `SpellingResolved` | **Empty** | Add 1 Crop to Inventory, Deduct 1 Action Point, Clear `cropId`. |
 | **Withered** | `CLEAR_CROP` | `actionsRemaining > 0` & `SpellingResolved` | **Empty** | Clear withered plot, Deduct 1 Action Point, Reset plot state. |
 
