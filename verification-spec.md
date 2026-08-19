@@ -10,11 +10,11 @@ This document defines the automated test suites, acceptance criteria, edge-case 
   - **When**: The game loads the initial farm state.
   - **Then**:
     - `dayCount` MUST equal `1`.
-    - `coins` MUST equal `50`.
+    - `coins` MUST equal `5`.
     - `currentActions` MUST equal `10` (or configured `maxActionsPerDay`).
     - `plots` array MUST contain exactly `25` elements with indices `0` through `24`, all with `state: "Empty"`.
-    - `seedInventory` MUST equal `{"Carrot": 3, "Tomato": 0, "Corn": 0, "Strawberry": 0, "Pumpkin": 0}`.
-    - `harvestedCropInventory` MUST equal `{"Carrot": 0, "Tomato": 0, "Corn": 0, "Strawberry": 0, "Pumpkin": 0}`.
+    - `seedInventory` MUST equal `{"crop_wheat": 3}` (with other crop seed counts at `0`).
+    - `harvestedCropInventory` MUST be empty or have `0` for all crops.
 - **1.1.2 Test Case: Action Point Decrement on Farm Action**:
   - **Given**: `currentActions == 5`.
   - **When**: The player successfully completes a farm action (Plant, Water, Harvest, or Clear).
@@ -49,22 +49,22 @@ This document defines the automated test suites, acceptance criteria, edge-case 
 
 ### 2.1 Growth Progression Scenarios
 - **2.1.1 Test Case: Watered Crop Growth Advancement**:
-  - **Given**: A plot with `cropType: "Carrot"`, `growthStage: 0`, `totalGrowthDays: 2`, and `isWateredToday: true`.
+  - **Given**: A plot with `cropType: "crop_carrot"`, `growthStage: 0`, `totalGrowthDays: 4`, and `isWateredToday: true`.
   - **When**: Day cycle advancement executes (Sleep).
   - **Then**:
     - `growthStage` MUST increment to `1`.
     - `unwateredDaysCount` MUST reset/remain `0`.
     - `state` MUST transition to `"Growing"`.
 - **2.1.2 Test Case: Crop Maturity to ReadyToHarvest**:
-  - **Given**: A plot with `cropType: "Carrot"`, `growthStage: 1`, `totalGrowthDays: 2`, and `isWateredToday: true`.
+  - **Given**: A plot with `cropType: "crop_carrot"`, `growthStage: 3`, `totalGrowthDays: 4`, and `isWateredToday: true`.
   - **When**: Day cycle advancement executes (Sleep).
   - **Then**:
-    - `growthStage` MUST reach `2` (`growthStage == totalGrowthDays`).
+    - `growthStage` MUST reach `4` (`growthStage == totalGrowthDays`).
     - `state` MUST transition to `"ReadyToHarvest"`.
 
 ### 2.2 Unwatered Pause & 2-Day Withering Matrix
 - **2.2.1 Test Case: Single Unwatered Day Growth Pause (No Withering)**:
-  - **Given**: A plot with `cropType: "Tomato"`, `growthStage: 1`, `unwateredDaysCount: 0`, and `isWateredToday: false` on Day 2.
+  - **Given**: A plot with `cropType: "crop_tomato"`, `growthStage: 1`, `unwateredDaysCount: 0`, and `isWateredToday: false` on Day 2.
   - **When**: Day 2 ends and Day 3 begins.
   - **Then**:
     - `growthStage` MUST remain `1` (growth paused).
@@ -163,34 +163,34 @@ This document defines the automated test suites, acceptance criteria, edge-case 
 
 ### 4.1 Seed Purchasing Verification
 - **4.1.1 Test Case: Successful Seed Purchase**:
-  - **Given**: `coins == 50`, `seedInventory.Tomato == 0`, `currentActions == 3`.
-  - **When**: Player purchases 1 Tomato seed packet (cost `18` coins).
+  - **Given**: `coins == 50`, `seedInventory.crop_tomato == 0`, `currentActions == 3`.
+  - **When**: Player purchases 1 Tomato seed packet (`crop_tomato`, cost `12` coins).
   - **Then**:
-    - `coins` MUST update to `32` (`50 - 18`).
-    - `seedInventory.Tomato` MUST update to `1`.
+    - `coins` MUST update to `38` (`50 - 12`).
+    - `seedInventory.crop_tomato` MUST update to `1`.
     - `currentActions` MUST remain `3` (0 energy cost).
     - 0 spelling challenges MUST be prompted.
 - **4.1.2 Test Case: Insufficient Funds Guard**:
-  - **Given**: `coins == 10`.
-  - **When**: Player views Corn seeds (cost `25` coins).
+  - **Given**: `coins == 5`.
+  - **When**: Player views Tomato seeds (`crop_tomato`, cost `12` coins).
   - **Then**:
     - Purchase button MUST be disabled with gray styling.
     - Tapping MUST NOT deduct coins and MUST NOT grant seeds.
 
 ### 4.2 Crop Selling Verification
 - **4.2.1 Test Case: Single Crop Sell**:
-  - **Given**: `coins == 100`, `harvestedCropInventory.Carrot == 3` (unit value `20` coins).
+  - **Given**: `coins == 100`, `harvestedCropInventory.crop_carrot == 3` (unit value `8` coins).
   - **When**: Player taps "Sell Carrots".
   - **Then**:
-    - `coins` MUST update to `160` (`100 + (3 * 20)`).
-    - `harvestedCropInventory.Carrot` MUST update to `0`.
+    - `coins` MUST update to `124` (`100 + (3 * 8)`).
+    - `harvestedCropInventory.crop_carrot` MUST update to `0`.
     - 0 energy cost and 0 spelling challenges.
 - **4.2.2 Test Case: Bulk "Sell All" Action**:
-  - **Given**: `coins == 0`, `harvestedCropInventory` containing 2 Carrots (`20` ea), 2 Tomatoes (`35` ea), and 1 Corn (`50` ea).
+  - **Given**: `coins == 0`, `harvestedCropInventory` containing 2 Carrots (`8` ea), 2 Tomatoes (`24` ea), and 1 Corn (`18` ea).
   - **When**: Player taps "Sell All Crops".
   - **Then**:
-    - Total calculation: `(2 * 20) + (2 * 35) + (1 * 50) = 40 + 70 + 50 = 160`.
-    - `coins` MUST update to `160`.
+    - Total calculation: `(2 * 8) + (2 * 24) + (1 * 18) = 16 + 48 + 18 = 82`.
+    - `coins` MUST update to `82`.
     - All crop counts in `harvestedCropInventory` MUST reset to `0`.
 
 ## 5 Audio Studio & Storage Bounds Verification Suite
