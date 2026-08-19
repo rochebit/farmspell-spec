@@ -25,10 +25,12 @@ This document provides a high-level summary of **FarmSpell**, its target audienc
 ## 3 Scope Boundaries & Non-Goals
 
 ### 3.1 Project Scope Goals
-- **3.1.1**: 100% offline-first execution using client-side local storage (`localStorage` and `IndexedDB`).
-- **3.1.2**: Zero external server/backend dependencies required for core gameplay.
+- **3.1.1**: Offline-first execution utilizing Firebase Authentication & Cloud Firestore with offline persistence enabled (`enableIndexedDbPersistence()`).
+- **3.1.2**: Device-local audio storage in `IndexedDB` for custom voice recordings with browser Web Speech API (TTS) fallback.
+- **3.1.3**: Multi-parent access and device linking via short-lived Share Codes.
 
 ### 3.2 Non-Goals
-- **3.2.1**: Online multiplayer, social leaderboards, or cloud user accounts.
+- **3.2.1**: Real-time multiplayer or global competitive leaderboards.
 - **3.2.2**: In-app real-money purchases or third-party advertising frameworks.
-- **3.2.3**: Real-time complex farming simulations (e.g., real-world clock timers or weather simulation).
+- **3.2.3**: Cloud storage upload for audio recording Blobs (recordings remain strictly local on device).
+- **3.2.4**: Real-time complex farming simulations (e.g., real-world clock timers or weather simulation).
