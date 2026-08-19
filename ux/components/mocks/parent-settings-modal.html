@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ParentSettingsModal Component Mock</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .modal-backdrop {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--color-surface-overlay);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .settings-box {
+      background: var(--color-surface-card);
+      border-radius: var(--radius-lg);
+      border: 4px solid var(--color-farm-green-main);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      max-width: 600px;
+      width: 100%;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .setting-row {
+      background: #FFFFFF;
+      border: 2px solid #E0E0E0;
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .stepper-control {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="modal-backdrop">
+    <div class="settings-box">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2 style="font-size: 24px;">⚙️ Parent Settings</h2>
+        <button class="btn-tactile" style="min-height: 40px; padding: 4px 14px; background: #ECEFF1; font-size: 15px;">✕</button>
+      </div>
+
+      <!-- Child Summary -->
+      <div style="background: #F1F8E9; border-radius: var(--radius-md); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 32px;">🦊</span>
+          <div>
+            <strong>Leo's Farm</strong>
+            <div style="font-size: 13px; color: var(--color-text-muted);">Day 4 • 125 Coins</div>
+          </div>
+        </div>
+        <button class="btn-tactile btn-blue" style="min-height: 40px; padding: 6px 14px; font-size: 14px;">Switch Child Profile</button>
+      </div>
+
+      <!-- Setting 1: AP Limit -->
+      <div class="setting-row">
+        <div>
+          <strong>Daily Energy Limit</strong>
+          <div style="font-size: 13px; color: var(--color-text-muted);">Max farming actions allowed per day</div>
+        </div>
+        <div class="stepper-control">
+          <button class="btn-tactile" style="min-height: 44px; width: 44px; padding: 0; background: #ECEFF1; font-size: 20px;">-</button>
+          <strong style="font-size: 20px; min-width: 32px; text-align: center;">10</strong>
+          <button class="btn-tactile" style="min-height: 44px; width: 44px; padding: 0; background: #ECEFF1; font-size: 20px;">+</button>
+        </div>
+      </div>
+
+      <!-- Setting 2: Word Pack -->
+      <div class="setting-row">
+        <div>
+          <strong>Spelling Curriculum</strong>
+          <div style="font-size: 13px; color: var(--color-text-muted);">Target word difficulty level</div>
+        </div>
+        <select style="font-family: inherit; font-size: 16px; font-weight: 600; padding: 8px 12px; border-radius: var(--radius-sm); border: 2px solid #CFD8DC;">
+          <option>Grade 1 Phonics</option>
+          <option>Grade K Phonics</option>
+          <option>Grade 2 Phonics</option>
+        </select>
+      </div>
+
+      <!-- Setting 3: Share Code -->
+      <div class="setting-row">
+        <div>
+          <strong>Co-Parent Sharing</strong>
+          <div style="font-size: 13px; color: var(--color-text-muted);">1 parent currently linked</div>
+        </div>
+        <button class="btn-tactile btn-gold" style="min-height: 44px; padding: 8px 16px; font-size: 15px;">Generate Share Code</button>
+      </div>
+
+      <button class="btn-tactile btn-green" style="width: 100%;">Save Settings</button>
+    </div>
+  </div>
+</body>
+</html>

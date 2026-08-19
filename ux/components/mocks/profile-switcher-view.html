@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProfileSwitcherView Component Mock</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .switcher-container {
+      max-width: 720px;
+      margin: 40px auto;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .profile-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .child-card {
+      background: #FFFFFF;
+      border: 3px solid #CFD8DC;
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+      position: relative;
+    }
+    .child-card-active {
+      border-color: var(--color-farm-green-main);
+      box-shadow: 0 0 16px rgba(76, 175, 80, 0.35);
+    }
+
+    .new-card-btn {
+      background: #FAFAFA;
+      border: 3px dashed #B0BEC5;
+      border-radius: var(--radius-lg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      cursor: pointer;
+      min-height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div class="switcher-container glass-card">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <h2 style="font-size: 26px;">Select Player Profile</h2>
+        <span style="font-size: 14px; color: var(--color-text-muted);">Choose which child's farm to play:</span>
+      </div>
+      <button class="btn-tactile" style="min-height: 40px; padding: 4px 14px; background: #ECEFF1; font-size: 15px;">✕ Back</button>
+    </div>
+
+    <div class="profile-cards-grid">
+      <!-- Profile 1 Active -->
+      <div class="child-card child-card-active">
+        <div style="position: absolute; top: 12px; right: 12px; background: var(--color-farm-green-main); color: white; padding: 2px 8px; border-radius: 9999px; font-size: 11px; font-weight: 700;">ACTIVE</div>
+        <div style="font-size: 56px;">🦊</div>
+        <strong style="font-size: 22px;">Leo</strong>
+        <span style="font-size: 14px; color: var(--color-text-muted);">Day 4 • 125 Coins</span>
+        <button class="btn-tactile btn-green" style="min-height: 44px; width: 100%; font-size: 16px;">Play Leo's Farm</button>
+      </div>
+
+      <!-- Profile 2 -->
+      <div class="child-card">
+        <div style="font-size: 56px;">🐰</div>
+        <strong style="font-size: 22px;">Mia</strong>
+        <span style="font-size: 14px; color: var(--color-text-muted);">Day 2 • 40 Coins</span>
+        <button class="btn-tactile btn-blue" style="min-height: 44px; width: 100%; font-size: 16px;">Switch to Mia</button>
+      </div>
+
+      <!-- New Child Action -->
+      <div class="new-card-btn">
+        <span style="font-size: 36px; color: #78909C;">➕</span>
+        <strong style="font-size: 17px; color: #546E7A;">Add Child Profile</strong>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

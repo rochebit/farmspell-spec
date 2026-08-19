@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Primary & Environment */
+  --color-farm-green-main: #4CAF50;
+  --color-farm-green-dark: #2E7D32;
+  --color-farm-green-light: #81C784;
+  --color-sprout-yellow-green: #8BC34A;
+  --color-sky-blue: #29B6F6;
+  --color-sky-blue-dark: #0288D1;
+
+  /* Soil & Plots */
+  --color-soil-dry: #8D6E63;
+  --color-soil-wet: #4E342E;
+  --color-soil-border: #3E2723;
+  --color-withered-gray: #78909C;
+
+  /* Currency & Rewards */
+  --color-coin-gold: #FFC107;
+  --color-coin-gold-dark: #FFA000;
+  --color-star-yellow: #FFEB3B;
+
+  /* Neutrals & Surfaces */
+  --color-surface-card: #FFFDF9;
+  --color-surface-overlay: rgba(33, 33, 33, 0.65);
+  --color-text-primary: #2D231E;
+  --color-text-muted: #6D5D55;
+  --color-text-inverted: #FFFFFF;
+
+  /* Status & Feedback */
+  --color-feedback-error: #E53935;
+  --color-feedback-success: #43A047;
+  --color-feedback-warning: #FB8C00;
+  --color-record-red: #E53935;
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+
+  /* Durations & Easings */
+  --duration-instant: 100ms;
+  --duration-quick: 200ms;
+  --duration-standard: 300ms;
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1.0);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body {
+  font-family: 'Fredoka', system-ui, -apple-system, sans-serif;
+  color: var(--color-text-primary);
+  background-color: #E8F5E9;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 3D Tactile Buttons */
+.btn-tactile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 56px;
+  padding: 12px 24px;
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 700;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: transform var(--duration-instant), box-shadow var(--duration-instant);
+}
+
+.btn-tactile:active {
+  transform: translateY(4px);
+}
+
+.btn-green {
+  background-color: var(--color-farm-green-main);
+  color: var(--color-text-inverted);
+  box-shadow: 0 5px 0 var(--color-farm-green-dark);
+}
+.btn-green:active {
+  box-shadow: 0 1px 0 var(--color-farm-green-dark);
+}
+
+.btn-blue {
+  background-color: var(--color-sky-blue);
+  color: var(--color-text-inverted);
+  box-shadow: 0 5px 0 var(--color-sky-blue-dark);
+}
+.btn-blue:active {
+  box-shadow: 0 1px 0 var(--color-sky-blue-dark);
+}
+
+.btn-gold {
+  background-color: var(--color-coin-gold);
+  color: var(--color-text-primary);
+  box-shadow: 0 5px 0 var(--color-coin-gold-dark);
+}
+.btn-gold:active {
+  box-shadow: 0 1px 0 var(--color-coin-gold-dark);
+}
+
+.btn-red {
+  background-color: var(--color-record-red);
+  color: var(--color-text-inverted);
+  box-shadow: 0 5px 0 #B71C1C;
+}
+.btn-red:active {
+  box-shadow: 0 1px 0 #B71C1C;
+}
+
+/* Glassmorphism Card Container */
+.glass-card {
+  background: var(--color-surface-card);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+  border: 3px solid var(--color-farm-green-light);
+  padding: 24px;
+}
+
+/* Keyframes */
+@keyframes errorWiggle {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 8px var(--color-coin-gold); transform: scale(1.0); }
+  50% { box-shadow: 0 0 20px var(--color-coin-gold); transform: scale(1.03); }
+}
+
+@keyframes floatZzz {
+  0% { transform: translateY(0) scale(0.8); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(-30px) scale(1.2); opacity: 0; }
+}

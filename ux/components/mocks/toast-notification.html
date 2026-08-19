@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ToastNotification Component Mock</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .showcase-container {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .toast-pill {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      border-radius: var(--radius-full);
+      background: var(--color-surface-card);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      border: 3px solid transparent;
+      cursor: pointer;
+      min-height: 56px;
+    }
+
+    .toast-info { border-color: var(--color-sky-blue); }
+    .toast-success { border-color: var(--color-feedback-success); }
+    .toast-warning { border-color: var(--color-feedback-warning); }
+    .toast-error { border-color: var(--color-feedback-error); }
+
+    .toast-icon { font-size: 24px; }
+    .toast-text { font-size: 16px; font-weight: 700; color: var(--color-text-primary); }
+  </style>
+</head>
+<body>
+  <div class="showcase-container glass-card">
+    <h2>Component Mock: ToastNotification</h2>
+    <p style="color: var(--color-text-muted);">Non-blocking floating feedback notifications across severity levels.</p>
+
+    <!-- Info -->
+    <div class="toast-pill toast-info">
+      <span class="toast-icon">💧</span>
+      <span class="toast-text">Already watered today!</span>
+    </div>
+
+    <!-- Success -->
+    <div class="toast-pill toast-success">
+      <span class="toast-icon">✨</span>
+      <span class="toast-text">Harvest complete! +20 Coins earned</span>
+    </div>
+
+    <!-- Warning -->
+    <div class="toast-pill toast-warning">
+      <span class="toast-icon">⚡</span>
+      <span class="toast-text">Energy depleted! Go to sleep at the farmhouse.</span>
+    </div>
+
+    <!-- Error -->
+    <div class="toast-pill toast-error">
+      <span class="toast-icon">❌</span>
+      <span class="toast-text">Not enough coins to buy Corn seeds!</span>
+    </div>
+  </div>
+</body>
+</html>

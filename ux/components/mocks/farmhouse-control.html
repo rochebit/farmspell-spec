@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FarmhouseControl Component Mock</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .showcase-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .modes-comparison {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .farmhouse-card {
+      width: 280px;
+      background: #FFFFFF;
+      border: 3px solid var(--color-soil-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      position: relative;
+      transition: transform var(--duration-instant);
+    }
+    .farmhouse-card:active {
+      transform: translateY(3px);
+    }
+
+    /* Bedtime Active Glowing State */
+    .bedtime-active {
+      border-color: var(--color-coin-gold);
+      animation: pulseGlow 1.6s infinite;
+    }
+
+    .house-visual {
+      font-size: 72px;
+      line-height: 1;
+      position: relative;
+    }
+
+    .zzz-particle {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      font-size: 24px;
+      animation: floatZzz 2s infinite ease-in-out;
+    }
+
+    .day-plaque {
+      background: var(--color-farm-green-dark);
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 4px 16px;
+      border-radius: var(--radius-full);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .bedtime-btn {
+      width: 100%;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="showcase-container glass-card">
+    <div style="text-align: center;">
+      <h2>Component Mock: FarmhouseControl</h2>
+      <p style="color: var(--color-text-muted); margin-top: 4px;">Interactive structure for Day / Sleep transitions.</p>
+    </div>
+
+    <div class="modes-comparison">
+      <!-- 1. Day Mode (Actions Remaining) -->
+      <div class="farmhouse-card">
+        <div class="day-plaque">Day 4</div>
+        <div class="house-visual">
+          🏡
+        </div>
+        <span style="font-size: 16px; font-weight: 600; color: var(--color-text-muted);">⚡ 6 AP Remaining</span>
+        <button class="btn-tactile btn-blue bedtime-btn" style="font-size: 16px;">Go to Sleep Early</button>
+      </div>
+
+      <!-- 2. Night Bedtime Mode (AP == 0) -->
+      <div class="farmhouse-card bedtime-active">
+        <div class="day-plaque" style="background: #E65100;">Day 4 Complete!</div>
+        <div class="house-visual">
+          🏡
+          <div class="zzz-particle">💤</div>
+        </div>
+        <span style="font-size: 16px; font-weight: 700; color: #E65100;">⚡ Energy Depleted</span>
+        <button class="btn-tactile btn-gold bedtime-btn" style="font-size: 16px; animation: pulseGlow 1.2s infinite;">😴 Sleep & Start Day 5</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

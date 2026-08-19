@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AudioStudioView Component Mock</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .studio-container {
+      max-width: 900px;
+      margin: 32px auto;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .studio-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .studio-body {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 24px;
+    }
+
+    /* Word List Column */
+    .word-list-box {
+      background: #FFFFFF;
+      border: 2px solid #CFD8DC;
+      border-radius: var(--radius-md);
+      padding: 16px;
+      max-height: 400px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .word-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      border: 2px solid transparent;
+      cursor: pointer;
+    }
+    .word-item:hover { background: #F1F8E9; }
+    .word-active {
+      background: #E8F5E9;
+      border-color: var(--color-farm-green-main);
+      font-weight: 700;
+    }
+
+    .source-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: var(--radius-full);
+    }
+    .badge-custom { background: #C8E6C9; color: var(--color-farm-green-dark); }
+    .badge-tts { background: #E1F5FE; color: var(--color-sky-blue-dark); }
+
+    /* Recording Station Column */
+    .recording-panel {
+      background: #FFFFFF;
+      border: 2px solid #CFD8DC;
+      border-radius: var(--radius-md);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      text-align: center;
+    }
+
+    .target-word-display {
+      font-size: 40px;
+      font-weight: 700;
+      color: var(--color-farm-green-dark);
+      letter-spacing: 2px;
+    }
+
+    /* Circular Timer Gauge */
+    .timer-ring {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 8px solid #ECEFF1;
+      border-top-color: var(--color-record-red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      position: relative;
+    }
+
+    .control-actions-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="studio-container glass-card">
+    <div class="studio-header">
+      <div>
+        <h2 style="font-size: 26px;">🎙️ Voice Recording Studio</h2>
+        <span style="font-size: 14px; color: var(--color-text-muted);">Record your own voice for spelling challenges!</span>
+      </div>
+      <button class="btn-tactile" style="min-height: 44px; padding: 6px 18px; background: #ECEFF1; font-size: 16px;">✕ Done</button>
+    </div>
+
+    <div class="studio-body">
+      <!-- Left: Word Pack List -->
+      <div class="word-list-box">
+        <div style="font-weight: 700; font-size: 15px; margin-bottom: 8px;">Grade 1 Farm Words (5 Words)</div>
+        <div class="word-item word-active">
+          <span>CARROT</span>
+          <span class="source-badge badge-custom">🎙️ Custom Voice</span>
+        </div>
+        <div class="word-item">
+          <span>WATER</span>
+          <span class="source-badge badge-tts">🤖 Default TTS</span>
+        </div>
+        <div class="word-item">
+          <span>PLANT</span>
+          <span class="source-badge badge-tts">🤖 Default TTS</span>
+        </div>
+        <div class="word-item">
+          <span>HARVEST</span>
+          <span class="source-badge badge-custom">🎙️ Custom Voice</span>
+        </div>
+        <div class="word-item">
+          <span>SOIL</span>
+          <span class="source-badge badge-tts">🤖 Default TTS</span>
+        </div>
+      </div>
+
+      <!-- Right: Active Recording Controls -->
+      <div class="recording-panel">
+        <span style="font-size: 14px; font-weight: 600; color: var(--color-text-muted);">Selected Word:</span>
+        <div class="target-word-display">CARROT</div>
+
+        <!-- 5.0s Countdown Ring -->
+        <div class="timer-ring">
+          1.8s
+        </div>
+
+        <div style="color: var(--color-text-muted); font-size: 14px;">5.0 Second Maximum Recording Limit</div>
+
+        <!-- Buttons Deck -->
+        <div class="control-actions-row">
+          <button class="btn-tactile btn-red" style="font-size: 17px;">● Record Voice</button>
+          <button class="btn-tactile btn-blue" style="font-size: 17px;">▶ Play Preview</button>
+          <button class="btn-tactile btn-green" style="font-size: 17px;">💾 Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

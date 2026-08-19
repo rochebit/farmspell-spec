@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopModal Component Mock</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .modal-backdrop {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--color-surface-overlay);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .shop-window {
+      background: var(--color-surface-card);
+      border-radius: var(--radius-lg);
+      border: 4px solid var(--color-coin-gold);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      max-width: 680px;
+      width: 100%;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .shop-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .tab-bar {
+      display: flex;
+      gap: 12px;
+      background: #F1F8E9;
+      padding: 4px;
+      border-radius: var(--radius-full);
+    }
+    .tab-btn {
+      flex: 1;
+      min-height: 44px;
+      border-radius: var(--radius-full);
+      border: none;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 8px 24px;
+    }
+    .tab-active {
+      background: var(--color-farm-green-main);
+      color: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    }
+    .tab-inactive {
+      background: transparent;
+      color: var(--color-text-muted);
+    }
+
+    .shop-items-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      max-height: 320px;
+      overflow-y: auto;
+    }
+
+    .shop-card {
+      background: #FFFFFF;
+      border: 2px solid #E0E0E0;
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+
+    .bulk-sell-banner {
+      background: #FFF8E1;
+      border: 2px solid var(--color-coin-gold);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+  <div class="modal-backdrop">
+    <div class="shop-window">
+      <!-- Header -->
+      <div class="shop-header">
+        <h2 style="font-size: 26px;">🏪 Farm Market</h2>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="background: #FFF8E1; border: 2px solid var(--color-coin-gold); padding: 6px 16px; border-radius: 9999px; font-weight: 700; font-size: 18px; color: #E65100;">
+            🪙 125 Coins
+          </div>
+          <button class="btn-tactile" style="min-height: 40px; padding: 4px 14px; background: #ECEFF1; font-size: 15px;">✕</button>
+        </div>
+      </div>
+
+      <!-- Tab Switcher -->
+      <div class="tab-bar">
+        <button class="tab-btn tab-active">🌱 Buy Seeds</button>
+        <button class="tab-btn tab-inactive">🧺 Sell Harvested Crops</button>
+      </div>
+
+      <!-- Seed Catalog Grid -->
+      <div class="shop-items-grid">
+        <!-- Item 1 -->
+        <div class="shop-card">
+          <div style="font-size: 36px;">🥕</div>
+          <strong>Carrot Seeds</strong>
+          <span style="font-size: 13px; color: var(--color-text-muted);">2 Days • Sells for 20🪙</span>
+          <button class="btn-tactile btn-green" style="min-height: 44px; width: 100%; font-size: 16px;">Buy for 10 🪙</button>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="shop-card">
+          <div style="font-size: 36px;">🍅</div>
+          <strong>Tomato Seeds</strong>
+          <span style="font-size: 13px; color: var(--color-text-muted);">2 Days • Sells for 35🪙</span>
+          <button class="btn-tactile btn-green" style="min-height: 44px; width: 100%; font-size: 16px;">Buy for 18 🪙</button>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="shop-card">
+          <div style="font-size: 36px;">🌽</div>
+          <strong>Corn Seeds</strong>
+          <span style="font-size: 13px; color: var(--color-text-muted);">3 Days • Sells for 50🪙</span>
+          <button class="btn-tactile btn-green" style="min-height: 44px; width: 100%; font-size: 16px;">Buy for 25 🪙</button>
+        </div>
+      </div>
+
+      <!-- Bulk Action Footer -->
+      <div class="bulk-sell-banner">
+        <div>
+          <strong style="font-size: 16px;">Harvest Basket: 6 Crops</strong>
+          <div style="font-size: 13px; color: var(--color-text-muted);">3 Carrots, 2 Tomatoes, 1 Corn</div>
+        </div>
+        <button class="btn-tactile btn-gold" style="font-size: 16px;">Sell All (+165 🪙)</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
