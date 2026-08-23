@@ -123,3 +123,34 @@ flowchart TD
   - **Step 5**: Parent A's client executes a direct `get()` on `/joinCodes/JOIN-8492`, extracts Parent B's `parentUid`, and updates `/players/{playerId}` by appending Parent B to `authorizedParentUids`.
   - **Step 6**: Because Parent A is already authorized on the child profile, the write succeeds client-side immediately.
   - **Step 7**: Parent B's device real-time listener (`where("authorizedParentUids", "array-contains", parentB.uid)`) fires instantly, and the child's farm appears on Device 2.
+
+## 5 Custom Word List Management Flow
+
+### 5.1 Creating & Activating Custom Word Lists
+- **5.1.1 Flow Diagram**:
+
+```mermaid
+flowchart TD
+    A[Parent unlocks Parental Gate] --> B[Open Word Lists & Curriculum in Settings]
+    B --> C[Tap 'Create New Word List']
+    C --> D[Enter List Name e.g. 'Friday Spelling Test']
+    D --> E[Add Words e.g. 'CHAIR', 'TABLE', 'PLANT']
+    E --> F[Client validates 3-10 letter words & auto-capitalizes]
+    F --> G[Save List to Firestore /players/playerId/customWordLists]
+    G --> H{Record Voice Audio Now?}
+    H -- Yes --> I[Open Audio Studio filtered to new custom list]
+    I --> J[Parent records custom voice for each word]
+    H -- Later / Default --> K[Words use default browser TTS in gameplay]
+    G --> L[Toggle List Active Status ON]
+    L --> M[New words immediately enter daily farm spelling rotation]
+```
+
+- **5.1.2 Functional Steps**:
+  - **Step 1**: Parent solves the adult verification math challenge to access `Parent Settings`.
+  - **Step 2**: Tap `Manage Spelling Words & Lists` to open the `WordListManagerModal`.
+  - **Step 3**: Tap `Create New List` to open the list editor.
+  - **Step 4**: Enter a descriptive list name (e.g., "Week 4 School Spelling") and add target words via tag input or newline separation.
+  - **Step 5**: Client validates that each word contains only alphabetical characters (`A-Z`) with length between 3 and 10 letters, automatically converting to uppercase and stripping duplicate entries.
+  - **Step 6**: Tap `Save Word List`. The list is committed to the child profile's `customWordLists` array in Firestore, immediately syncing across all authorized parents' devices.
+  - **Step 7**: A prompt asks: "Would you like to record your voice for these words now?". Selecting "Yes" seamlessly routes the parent to `AudioStudioView` with the newly created list pre-selected.
+  - **Step 8**: The custom list's `isActive` toggle ensures the new words are immediately included in the farm's spelling challenge rotation.

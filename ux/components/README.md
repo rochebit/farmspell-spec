@@ -29,10 +29,11 @@ This directory contains individual specification documents for every reusable UI
 - **[audio-studio-view.md](audio-studio-view.md)** – Audio recording studio view with word browser, microphone recorder, 5.0s countdown ring, and TTS fallback controls.
 
 ### 1.6 Profile & Parental Controls
+- **[word-list-manager-modal.md](word-list-manager-modal.md)** – Custom word list editor, tag-style chip management, and curriculum activation toggles.
 - **[parental-gate-modal.md](parental-gate-modal.md)** – Adult math challenge gate preventing accidental access to settings.
 - **[parent-settings-modal.md](parent-settings-modal.md)** – Settings modal for daily action limits, word pack curriculum assignment, and co-parent linking.
 - **[profile-switcher-view.md](profile-switcher-view.md)** – Multi-child profile switcher and profile creation interface.
-- **[share-code-modal.md](share-code-modal.md)** – 6-digit share code generator with 15-minute countdown timer.
+- **[share-code-modal.md](share-code-modal.md)** – 6-digit Join Code generator with 15-minute countdown timer.
 
 ## 2 Interactive HTML Component Mocks
 
@@ -47,8 +48,9 @@ Interactive visual HTML/CSS mocks demonstrating component rendering, 3D button d
 - **[mocks/spelling-challenge-modal.html](mocks/spelling-challenge-modal.html)** – Live visual mock of the Spelling Challenge learning overlay.
 - **[mocks/shop-modal.html](mocks/shop-modal.html)** – Live visual mock of the Shop modal with Buy Seeds and Sell Crops tabs.
 - **[mocks/audio-studio-view.html](mocks/audio-studio-view.html)** – Live visual mock of the Voice Recording Studio and 5s timer gauge.
+- **[mocks/word-list-manager-modal.html](mocks/word-list-manager-modal.html)** – Live visual mock of the custom word list editor and curriculum manager.
 - **[mocks/parental-gate-modal.html](mocks/parental-gate-modal.html)** – Live visual mock of the adult math challenge keypad.
 - **[mocks/parent-settings-modal.html](mocks/parent-settings-modal.html)** – Live visual mock of parent settings and AP limit stepper.
 - **[mocks/profile-switcher-view.html](mocks/profile-switcher-view.html)** – Live visual mock of multi-child profile switcher cards.
-- **[mocks/share-code-modal.html](mocks/share-code-modal.html)** – Live visual mock of the 6-digit share code display and countdown timer.
+- **[mocks/share-code-modal.html](mocks/share-code-modal.html)** – Live visual mock of the 6-digit Join Code display and countdown timer.
 - **[mocks/styles.css](mocks/styles.css)** – Shared CSS design tokens, typography, and tactile button classes.

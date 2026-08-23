@@ -213,3 +213,22 @@ This document defines the functional content, data fields, indicators, and user 
 - **6.5.2 Interactive Controls & Triggers**:
   - **6.5.2.1 Submit Code Trigger**: Fetches `/joinCodes/{code}`, extracts `parentUid`, and appends UID to `authorizedParentUids`.
   - **6.5.2.2 Cancel Trigger**: Closes modal without modifications.
+
+### 6.6 Word List Manager & Editor Modal (`WordListManagerModal`)
+- **6.6.1 Data Displayed & Indicators**:
+  - **6.6.1.1 Curriculum & Lists Overview**: Displays two sections:
+    - *Built-in Grade Packs*: (Grade K, Grade 1, Grade 2, Sight Words) with word counts and active checkboxes.
+    - *Custom Family Lists*: Cards for each parent-created list showing title, word count, active toggle, and creation date.
+  - **6.6.1.2 Word List Editor Panel**:
+    - List Name Input field (e.g., "Week 3 School Words").
+    - Tag-style word chips showing currently entered words with remove (`×`) buttons.
+    - Add Word input box with real-time length (3–10 chars) and alphabetical (`A-Z`) validation cues.
+  - **6.6.1.3 Active Word Pool Counter**: Live indicator calculating total unique words active in the child's daily farm challenge pool.
+- **6.6.2 Interactive Controls & Triggers**:
+  - **6.6.2.1 Create New List Trigger**: Opens blank list editor form.
+  - **6.6.2.2 Add Word Action**: Validates input, capitalizes, and appends chip to word list.
+  - **6.6.2.3 Remove Word Action**: Removes chip from list.
+  - **6.6.2.4 Save List Action**: Commits list to `customWordLists` in Firestore.
+  - **6.6.2.5 Delete List Action**: Removes custom list from Firestore.
+  - **6.6.2.6 Record Audio Shortcut**: Routes directly to `AudioStudioView` with the custom list pre-filtered.
+  - **6.6.2.7 Close Modal Trigger**: Dismisses manager and returns to Parent Settings.

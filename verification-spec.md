@@ -159,6 +159,24 @@ This document defines the automated test suites, acceptance criteria, edge-case 
     - The challenge modal MUST close.
     - The farm plot MUST remain unchanged.
 
+### 3.3 Custom Word List Management & Selection Verification
+- **3.3.1 Test Case: Word List Entry Validation**:
+  - **Given**: Parent entering words into `WordListManagerModal`.
+  - **When**: Submitting invalid inputs (`"HI"` (< 3 letters), `"SUPERLONGWORD"` (> 10 letters), `"CAT123"` (contains numbers)).
+  - **Then**: The system MUST reject the word and highlight the validation error.
+- **3.3.2 Test Case: Automatic Uppercase & Deduplication**:
+  - **Given**: Parent adds `"apple"`, `"CHAIR"`, and duplicate `"apple"`.
+  - **When**: Saving the word list.
+  - **Then**: The saved array MUST be normalized to `["APPLE", "CHAIR"]` with duplicates removed.
+- **3.3.3 Test Case: Custom Word Pool Drawing in Farm Challenges**:
+  - **Given**: A custom word list with `isActive: true` containing `["CHAIR", "TABLE"]`.
+  - **When**: The child triggers farm spelling challenges.
+  - **Then**: Words from the active custom list MUST appear in the challenge prompt rotation alongside active grade packs.
+- **3.3.4 Test Case: Inactive Custom List Exclusion**:
+  - **Given**: A custom word list with `isActive: false` containing `["ROBOT"]`.
+  - **When**: Farm challenges are generated.
+  - **Then**: `"ROBOT"` MUST NEVER be selected for spelling prompts until the list is toggled `isActive: true`.
+
 ## 4 Economy & Shop Verification Suite
 
 ### 4.1 Seed Purchasing Verification

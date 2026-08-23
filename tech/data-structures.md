@@ -100,7 +100,31 @@ This document defines the core data structures, Firestore document schemas, and 
     },
     "activeWordPackIds": {
       "type": "array",
-      "items": { "type": "string" }
+      "items": { "type": "string" },
+      "description": "Identifiers of active built-in curriculum packs"
+    },
+    "customWordLists": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["listId", "name", "words", "isActive", "createdAt", "updatedAt"],
+        "properties": {
+          "listId": { "type": "string" },
+          "name": { "type": "string", "maxLength": 50 },
+          "words": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Z]{3,10}$"
+            },
+            "minItems": 1
+          },
+          "isActive": { "type": "boolean" },
+          "createdAt": { "type": "integer" },
+          "updatedAt": { "type": "integer" }
+        }
+      },
+      "description": "Parent-created custom spelling word lists"
     }
   }
 }

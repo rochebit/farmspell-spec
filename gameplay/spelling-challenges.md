@@ -12,8 +12,11 @@ This document defines the rules governing spelling prompts, input mechanisms, re
 - **1.1.2**: The farm action CANNOT complete until the Spelling Challenge is successfully resolved.
 
 ### 1.2 Word Selection Engine
-- **1.2.1**: Words are selected at random from the player's currently selected **Active Word Lists** (see [profiles-and-audio.md](profiles-and-audio.md)).
-- **1.2.2**: The selection algorithm enforces a non-repeating queue (a word will not repeat until all other words in the active list have been presented once).
+- **1.2.1**: Words are selected at random from the active word pool, which includes:
+  - All words from activated built-in curriculum packs (`activeWordPackIds`).
+  - All words from activated parent-created custom word lists (`customWordLists.filter(list => list.isActive)`).
+- **1.2.2**: If active custom word lists exist, their words are prioritized or interleaved into the daily challenge rotation.
+- **1.2.3**: The selection algorithm enforces a non-repeating queue (a word will not repeat until all other words in the active pool have been presented once).
 
 ## 2 Audio Pronunciation & Input Interface
 
