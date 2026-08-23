@@ -9,6 +9,7 @@ The `WordListManagerModal` allows parents to create, edit, delete, and activate 
 - **1.1.2 `builtInPacks`**: `Array<WordPackMetadata>` – List of built-in curriculum packs (Grade K, Grade 1, Grade 2, Sight Words).
 - **1.1.3 `activeWordPackIds`**: `Array<string>` – IDs of currently active built-in packs.
 - **1.1.4 `customWordLists`**: `Array<CustomWordList>` – Parent-created custom lists from `PlayerProfileDocument`.
+- **1.1.5 `spellingStats`**: `Record<string, WordSpellingStats>` – Child's persistent right/wrong and streak statistics per word.
 
 ### 1.2 Event Handlers
 - **1.2.1 `onToggleBuiltInPack`**: `(packId: string) => Promise<void>` – Toggles a built-in pack's active status in Firestore.
@@ -31,6 +32,7 @@ The `WordListManagerModal` allows parents to create, edit, delete, and activate 
 ### 2.3 Custom Family Lists Section
 - **2.3.1 Custom List Cards**: For each custom list:
   - List Name & Word Count (e.g., "Week 3 School Words • 8 Words").
+  - Learning Status Summary: Breakdown of words (e.g., `3 Mastered • 4 Practicing • 1 Needs Practice`).
   - Active Toggle Switch.
   - "Edit Words" button.
   - "🎙️ Record Voices" button (shortcut to Audio Studio).
@@ -39,7 +41,11 @@ The `WordListManagerModal` allows parents to create, edit, delete, and activate 
 
 ### 2.4 List Editor Form / Drawer
 - **2.4.1 List Name Input**: Text input (max 50 chars).
-- **2.4.2 Word Tag Chips**: List of chips showing entered words with remove (`×`) buttons.
+- **2.4.2 Word Tag Chips**: List of chips showing entered words with status indicator and remove (`×`) buttons:
+  - `⭐ Mastered` (streak >= 3)
+  - `🌱 Practicing` (streak 1–2)
+  - `🚨 Needs Practice` (streak 0, incorrect > 0)
+  - `✨ New` (unpracticed)
 - **2.4.3 Word Input Box**: High-contrast input field with uppercase auto-conversion and 3–10 letter validation cue.
 - **2.4.4 Action Row**: "Save List" button and "Cancel" button.
 

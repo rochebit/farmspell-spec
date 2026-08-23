@@ -177,6 +177,38 @@ This document defines the automated test suites, acceptance criteria, edge-case 
   - **When**: Farm challenges are generated.
   - **Then**: `"ROBOT"` MUST NEVER be selected for spelling prompts until the list is toggled `isActive: true`.
 
+### 3.4 Adaptive Word Selection & Streak Tracking Verification
+- **3.4.1 Test Case: First-Try Correct Streak Progression**:
+  - **Given**: Target word `"CARROT"` with initial `spellingStats["CARROT"] = { correctCount: 2, incorrectCount: 0, streak: 2 }`.
+  - **When**: Child solves `"CARROT"` on attempt 1 (`failedAttemptCount == 0`).
+  - **Then**:
+    - `correctCount` MUST increment to `3`.
+    - `streak` MUST increment to `3` (reaching Mastered status).
+- **3.4.2 Test Case: Streak Reset Upon First Mistake**:
+  - **Given**: Target word `"WATER"` with initial `streak == 4`.
+  - **When**: Child submits incorrect spelling `"WATUR"` on attempt 1.
+  - **Then**:
+    - `incorrectCount` MUST increment by 1.
+    - `streak` MUST immediately reset to `0`.
+- **3.4.3 Test Case: Resolved After Retries Keeps Streak at Zero**:
+  - **Given**: Target word `"WATER"` where attempt 1 was incorrect (`streak == 0`).
+  - **When**: Child subsequently enters correct spelling on attempt 2 or 3.
+  - **Then**:
+    - `correctCount` MUST increment by 1.
+    - `streak` MUST remain `0`.
+- **3.4.4 Test Case: 3-Word Recency Buffer Exclusion**:
+  - **Given**: Active word pool `["A", "B", "C", "D", "E"]`. Last 3 words presented: `["A", "B", "C"]`.
+  - **When**: Engine selects the next word challenge.
+  - **Then**: Next candidate MUST only be drawn from `["D", "E"]`.
+- **3.4.5 Test Case: 4-Tier Selection Weight Assignment**:
+  - **Given**:
+    - Word 1 (Struggling: `streak: 0, incorrectCount: 2`) -> Weight MUST equal `40`.
+    - Word 2 (New: `correctCount: 0, incorrectCount: 0`) -> Weight MUST equal `30`.
+    - Word 3 (Practicing: `streak: 2`) -> Weight MUST equal `20`.
+    - Word 4 (Mastered: `streak: 3`) -> Weight MUST equal `5`.
+  - **When**: Calculating candidate selection probabilities.
+  - **Then**: The candidate weights MUST evaluate precisely to `40`, `30`, `20`, and `5`.
+
 ## 4 Economy & Shop Verification Suite
 
 ### 4.1 Seed Purchasing Verification

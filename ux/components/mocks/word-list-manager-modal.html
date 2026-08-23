@@ -134,13 +134,13 @@
 
         <input type="text" value="Week 4 School Spelling" placeholder="List Name (e.g. Friday Quiz)" style="font-family: inherit; font-size: 16px; font-weight: 700; padding: 10px 14px; border-radius: var(--radius-sm); border: 2px solid #CFD8DC;">
 
-        <!-- Word Tag Chips -->
+        <!-- Word Tag Chips with Learning Status -->
         <div class="word-chips-container">
-          <span class="word-chip">CHAIR <span class="chip-remove">×</span></span>
-          <span class="word-chip">TABLE <span class="chip-remove">×</span></span>
-          <span class="word-chip">WINDOW <span class="chip-remove">×</span></span>
-          <span class="word-chip">DOOR <span class="chip-remove">×</span></span>
-          <span class="word-chip">PENCIL <span class="chip-remove">×</span></span>
+          <span class="word-chip" style="border-color: #43A047; background: #E8F5E9;">⭐ CHAIR <small style="font-size: 11px; opacity: 0.8;">(Streak 4)</small> <span class="chip-remove">×</span></span>
+          <span class="word-chip" style="border-color: #43A047; background: #E8F5E9;">⭐ TABLE <small style="font-size: 11px; opacity: 0.8;">(Streak 3)</small> <span class="chip-remove">×</span></span>
+          <span class="word-chip" style="border-color: #039BE5; background: #E1F5FE;">🌱 WINDOW <small style="font-size: 11px; opacity: 0.8;">(Streak 1)</small> <span class="chip-remove">×</span></span>
+          <span class="word-chip" style="border-color: #E53935; background: #FFEBEE;">🚨 DOOR <small style="font-size: 11px; color: #C62828;">(Needs Practice)</small> <span class="chip-remove">×</span></span>
+          <span class="word-chip" style="border-color: #9E9E9E; background: #FAFAFA;">✨ PENCIL <small style="font-size: 11px; opacity: 0.8;">(New)</small> <span class="chip-remove">×</span></span>
         </div>
 
         <div style="display: flex; gap: 8px;">
@@ -161,7 +161,9 @@
         <div class="list-card list-card-active">
           <div>
             <strong style="font-size: 16px;">Week 4 School Spelling</strong>
-            <div style="font-size: 13px; color: var(--color-text-muted);">5 Words • 2 with Custom Voice 🎙️</div>
+            <div style="font-size: 13px; color: var(--color-text-muted); margin-top: 2px;">
+              5 Words • <span style="color: #2E7D32; font-weight: 600;">2 Mastered</span> • <span style="color: #0277BD; font-weight: 600;">1 Practicing</span> • <span style="color: #C62828; font-weight: 600;">1 Review</span> • 2 with Voice 🎙️
+            </div>
           </div>
           <div style="display: flex; align-items: center; gap: 10px;">
             <button class="btn-tactile btn-blue" style="min-height: 38px; padding: 4px 12px; font-size: 13px;">🎙️ Record Voices</button>

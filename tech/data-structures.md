@@ -125,6 +125,20 @@ This document defines the core data structures, Firestore document schemas, and 
         }
       },
       "description": "Parent-created custom spelling word lists"
+    },
+    "spellingStats": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["correctCount", "incorrectCount", "streak", "lastPracticedAt"],
+        "properties": {
+          "correctCount": { "type": "integer", "minimum": 0 },
+          "incorrectCount": { "type": "integer", "minimum": 0 },
+          "streak": { "type": "integer", "minimum": 0 },
+          "lastPracticedAt": { "type": "integer" }
+        }
+      },
+      "description": "Spelling performance and streak tracking keyed by uppercase word (e.g. 'CARROT')"
     }
   }
 }
