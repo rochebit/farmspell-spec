@@ -21,7 +21,7 @@ This document defines the rules for player profile management, profile persisten
 
 ### 2.1 Audio Studio Interface
 - **2.1.1**: The **Audio Studio** is directly accessible to children and parents from the main game HUD / Status Bar via the microphone icon button (open access, no parental gate barrier).
-- **2.1.2**: The Audio Studio allows children or parents to view all available Word Lists (built-in packs and custom family lists) and individual words within each list.
+- **2.1.2**: **Active Lists Scoping**: The Audio Studio strictly displays words from the **Active Word Lists** currently selected/activated by parents (active built-in packs `activeWordPackIds` and active custom lists `customWordLists.filter(list => list.isActive)`). Inactive curriculum packs and inactive custom lists are excluded from the child's studio view.
 
 ### 2.2 Micro-Recording Workflow
 - **2.2.1**: Tapping a word opens its Audio Recording Drawer featuring:

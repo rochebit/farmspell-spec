@@ -5,8 +5,8 @@ The `AudioStudioView` is the recording suite where parents or children can recor
 ## 1 Component Inputs & State
 
 ### 1.1 Props Interface
-- **1.1.1 `activeWordPackId`**: `string` – Identifier of the active word pack (e.g., `'kindergarten'`, `'grade-1'`).
-- **1.1.2 `wordList`**: `Array<WordRecord>` – List of words in the active curriculum.
+- **1.1.1 `activeWordLists`**: `Array<ActiveWordList>` – Combined list of active built-in curriculum packs and activated parent custom word lists.
+- **1.1.2 `wordList`**: `Array<WordRecord>` – All words belonging to the child's currently active lists.
 - **1.1.3 `localAudioRecords`**: `Record<string, LocalAudioMetadata>` – Metadata of custom recordings in IndexedDB.
 
 ### 1.2 Event Handlers
@@ -18,8 +18,8 @@ The `AudioStudioView` is the recording suite where parents or children can recor
 
 ### 2.1 Header & Word Navigator
 - **2.1.1 Title & Subtitle**: "Voice Recording Studio" – "Record your own voice for spelling words!".
-- **2.1.2 Word Pack Selector**: Dropdown/tab list of word packs.
-- **2.1.3 Word Registry Table**: Scrollable list of words:
+- **2.1.2 Active List Tabs / Selector**: Tabs or dropdown displaying only the **Active Word Lists** enabled by parents (e.g. "Grade 1 Phonics", "Week 4 School Spelling"). Inactive lists are hidden from the child's view.
+- **2.1.3 Word Registry Table**: Scrollable list of words in the selected active list:
   - Word string (font: `BodyRegular`, bold).
   - Status Badge: `Custom Voice` (green pill) or `Default TTS` (blue pill).
   - Duration Badge: `${duration.toFixed(1)}s` if recorded.
