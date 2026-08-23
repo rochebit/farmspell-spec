@@ -13,21 +13,28 @@ flowchart TD
     B -- No --> C[Google Sign-In Prompt]
     C --> D[Parent Account Authenticated]
     B -- Yes --> E{Has Child Profiles?}
-    D --> F[Create First Child Profile]
-    E -- No --> F
-    E -- Yes --> G[Select Active Child Profile]
-    F --> H[Initialize Default 5x5 Farm State]
-    H --> I[Enter Main Farm View]
-    G --> I
+    D --> E
+    E -- Yes --> F[Select Active Child Profile]
+    E -- No --> G{Choose Setup Action}
+    G -- New Family --> H[Create First Child Profile]
+    G -- Join Existing Family --> I[Generate Join Code Screen]
+    I --> J[Parent B shares code with existing Parent A]
+    J --> K[Parent A authorizes Parent B in Settings]
+    K --> L[Child Farm Auto-Discovered via Real-Time Sync]
+    H --> M[Initialize Default 5x5 Farm State]
+    M --> N[Enter Main Farm View]
+    F --> N
+    L --> N
 ```
 
 - **1.1.2 Functional Steps**:
   - **Step 1**: App launches and checks Firebase Authentication state.
   - **Step 2**: If unauthenticated, present Google Sign-In prompt/button.
   - **Step 3**: Upon authentication, query Firestore for profiles matching `authorizedParentUids`.
-  - **Step 4**: If no profiles exist, present "Create Child Profile" modal (enter child name & select avatar icon).
-  - **Step 5**: Creating the profile generates a new Firestore document at `/players/{playerId}` with starter coins, seeds, and initial farm grid state.
-  - **Step 6**: Enter the Main Farm View with the active profile selected.
+  - **Step 4**: If no profiles exist, present the **Welcome Onboarding Choice** screen with two options:
+    - **Option 1: "Create a New Child Profile"**: Enter child name and select avatar icon; generates a new `/players/{playerId}` document with starter farm.
+    - **Option 2: "Connect to an Existing Family"**: Opens the **Join Code Screen** (`JoinCodeModal`), generating a 15-minute 6-digit code (e.g., `JOIN-8492`) without forcing the parent to create a new child profile.
+  - **Step 5**: When "Connect to an Existing Family" is chosen, the screen displays the code and listens in real-time. Once the existing parent enters the code on their device, the new parent's app automatically detects the linked profile and transitions directly into the child's farm view.
 
 ## 2 Daily Core Gameplay Loop
 

@@ -12,7 +12,7 @@ The `ProfileSwitcherView` provides an interface for selecting an active child pr
 ### 1.2 Event Handlers
 - **1.2.1 `onSelectProfile`**: `(playerId: string) => void` – Sets active profile and switches farm view.
 - **1.2.2 `onCreateProfile`**: `(name: string, avatarId: string) => Promise<void>` – Creates new child profile document in Firestore.
-- **1.2.3 `onRedeemShareCode`**: `(code: string) => Promise<void>` – Links existing profile using 6-digit code.
+- **1.2.3 `onOpenJoinCode`**: `() => void` – Opens the Join Code modal (`JoinCodeModal`) to display this parent's 6-digit Join Code for linking to an existing child.
 - **1.2.4 `onClose`**: `() => void` – Returns to game.
 
 ## 2 Contained Elements & Sub-Components
@@ -25,9 +25,10 @@ The `ProfileSwitcherView` provides an interface for selecting an active child pr
   - **Active Indicator**: Green checkmark badge if `playerId == activePlayerId`.
   - **Select Button**: Primary action button to load this child's farm.
 
-### 2.2 Add Profile & Share Code Action Row
-- **2.2.1 "Add Child Profile" Card**: Plus button card opening profile creation modal (Name input + avatar icon selector).
-- **2.2.2 "Redeem Share Code" Button**: Button opening the 6-digit code entry dialog.
+### 2.2 Add Profile & Connect Actions
+- **2.2.1 "Create Child Profile" Card**: Plus button card opening profile creation form (Name input + avatar selector).
+- **2.2.2 "Connect to Existing Family" Button**: Button opening the [JoinCodeModal](share-code-modal.md) to generate a 6-digit Join Code for an existing parent to authorize.
+- **2.2.3 Empty State Screen**: When `profiles.length == 0` on first login, prominently displays the two primary paths ("Create New Child Profile" vs "Connect to Existing Family") with clear explanatory illustrations.
 
 ## 3 Visual States & Styling Mappings
 
