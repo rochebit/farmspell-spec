@@ -20,8 +20,8 @@ This document defines the rules for player profile management, profile persisten
 ## 2 Audio Studio & Recording Mechanics
 
 ### 2.1 Audio Studio Interface
-- **2.1.1**: The **Audio Studio** is accessible via the Settings / Pause Menu under **"Manage Voices & Words"**.
-- **2.1.2**: The Audio Studio allows children or parents to view all available Word Lists and individual words within each list.
+- **2.1.1**: The **Audio Studio** is directly accessible to children and parents from the main game HUD / Status Bar via the microphone icon button (open access, no parental gate barrier).
+- **2.1.2**: The Audio Studio allows children or parents to view all available Word Lists (built-in packs and custom family lists) and individual words within each list.
 
 ### 2.2 Micro-Recording Workflow
 - **2.2.1**: Tapping a word opens its Audio Recording Drawer featuring:

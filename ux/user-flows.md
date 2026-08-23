@@ -75,10 +75,10 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    A[Open Settings Menu] --> B[Select Audio Studio]
-    B --> C[Browse Active Word Packs & Word Items]
-    C --> D[Select Target Word Item]
-    D --> E[Open Mic Recording Drawer]
+    A[Child or Parent on Main Farm View] --> B[Tap Microphone Icon on Top Status Bar]
+    B --> C[Open Audio Studio - No Parental Gate Required]
+    C --> D[Browse Active Word Packs & Custom Lists]
+    D --> E[Select Target Word Item]
     E --> F[Tap Record Button]
     F --> G[Speak Voice Recording - Max 5.0s Timer]
     G --> H[Tap Stop or Auto-Stop at 5.0s]
@@ -87,15 +87,17 @@ flowchart TD
     J -- Re-record --> F
     J -- Save --> K[Save Audio Blob to Local IndexedDB]
     K --> L[Update Word Status Badge to Custom Recorded]
+    L --> M[Child immediately hears their own voice in Farm Challenges!]
 ```
 
 - **3.1.2 Functional Steps**:
-  - **Step 1**: Access Audio Studio via Settings Menu ("Manage Voices & Words").
-  - **Step 2**: Select a word list to view individual words and their recording status (`Custom Recorded` vs `Default TTS`).
-  - **Step 3**: Tap `Record Voice` on a word to open the Microphone Drawer.
-  - **Step 4**: Tap `Record` and speak into the microphone (hard capped at 5.0 seconds).
-  - **Step 5**: Tap `Test Playback` to review the local audio Blob.
-  - **Step 6**: Tap `Save` to persist the audio Blob in local `IndexedDB` under key `${playerId}_${wordId}`.
+  - **Step 1**: Child or parent taps the prominent **Microphone button** (`🎙️`) on the top HUD Status Bar (open to kids, zero parental gate required).
+  - **Step 2**: The Audio Studio opens, presenting active curriculum packs and custom family word lists.
+  - **Step 3**: Select any word to view its current audio status (`Custom Recorded` vs `Default TTS`).
+  - **Step 4**: Tap `Record` and speak into the microphone (with a visual 5.0s circular countdown gauge).
+  - **Step 5**: Tap `Play Preview` to listen back to the voice clip.
+  - **Step 6**: Tap `Save` to persist the audio Blob in local `IndexedDB` under composite key `${playerId}_${wordId}`.
+  - **Step 7**: The word badge immediately turns to `Custom Voice`, and the child will hear that exact voice recording during subsequent farm spelling challenges!
 
 ## 4 Multi-Parent Profile Linking Flow
 
