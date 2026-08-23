@@ -92,24 +92,27 @@ flowchart TD
 
 ## 4 Multi-Parent Profile Linking Flow
 
-### 4.1 Share Code Generation & Redemption Flow
+### 4.1 Join Code Handshake Flow
 - **4.1.1 Flow Diagram**:
 
 ```mermaid
 flowchart TD
-    A[Parent A opens Parent Settings] --> B[Tap Share Child Profile]
-    B --> C[Generate 6-Digit Code: FARM-8492]
-    C --> D[Display Code & 24h Expiry Timer]
-    E[Parent B signs in on Device 2] --> F[Tap Link Child Profile]
-    F --> G[Enter Share Code: FARM-8492]
-    G --> H[Firestore Appends Parent B UID to authorizedParentUids]
-    H --> I[Child Profile Appears on Parent B Device Dashboard]
+    A[Parent B signs in on Device 2] --> B[Tap Connect to a Child Profile]
+    B --> C[Generate 6-Digit Join Code: JOIN-8492]
+    C --> D[Display Code & 15m Expiry Timer on Device 2]
+    D --> E[Parent B shares code with Parent A]
+    E --> F[Parent A opens Child Settings on Device 1]
+    F --> G[Parent A enters code: JOIN-8492]
+    G --> H[Parent A client fetches /joinCodes/JOIN-8492 & gets Parent B UID]
+    H --> I[Parent A client updates /players/childId appending Parent B UID]
+    I --> J[Child Profile instantly appears on Parent B Device via real-time query]
 ```
 
 - **4.1.2 Functional Steps**:
-  - **Step 1**: Parent A opens Parent Settings on Device 1 and taps `Share Child Profile`.
-  - **Step 2**: The app creates a temporary document in Firestore `/shareCodes/{codeId}` with a 6-digit code valid for 24 hours.
-  - **Step 3**: Parent B opens the app on Device 2, signs into their Firebase Auth account, and taps `Link Child Profile`.
-  - **Step 4**: Parent B inputs the 6-digit code (`FARM-8492`).
-  - **Step 5**: The Firestore backend verifies the code and appends Parent B's `auth.uid` to the player document's `authorizedParentUids` array.
-  - **Step 6**: The child profile instantly populates on Parent B's device dashboard with full cross-device progress syncing.
+  - **Step 1**: Parent B signs into their Google account on Device 2 and taps `Connect to a Child`.
+  - **Step 2**: Device 2 generates a temporary document in Firestore at `/joinCodes/JOIN-8492` containing Parent B's UID and a 15-minute expiration timestamp.
+  - **Step 3**: Parent B provides the 6-digit code `JOIN-8492` to Parent A (who is currently managing the child's farm).
+  - **Step 4**: Parent A opens `Parent Settings` -> `Co-Parent Access` on Device 1 and enters the 6-digit code.
+  - **Step 5**: Parent A's client executes a direct `get()` on `/joinCodes/JOIN-8492`, extracts Parent B's `parentUid`, and updates `/players/{playerId}` by appending Parent B to `authorizedParentUids`.
+  - **Step 6**: Because Parent A is already authorized on the child profile, the write succeeds client-side immediately.
+  - **Step 7**: Parent B's device real-time listener (`where("authorizedParentUids", "array-contains", parentB.uid)`) fires instantly, and the child's farm appears on Device 2.

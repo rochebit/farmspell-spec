@@ -34,19 +34,21 @@ service cloud.firestore {
         request.auth.uid in request.resource.data.authorizedParentUids;
     }
 
-    // Share Codes Collection (for linking parents)
-    match /shareCodes/{codeId} {
-      // Allow read if authenticated
-      allow read: if request.auth != null;
+    // Join Codes Collection (for parent-to-parent linking handshake)
+    match /joinCodes/{code} {
+      // Allow fetching a SINGLE document ONLY if the exact code ID is known
+      allow get: if request.auth != null;
       
-      // Allow create if creator is authenticated
+      // Strictly deny listing or querying the collection to prevent enumeration
+      allow list: if false;
+      
+      // Allow create only if creator attaches their own UID
       allow create: if request.auth != null && 
-        request.resource.data.createdByUid == request.auth.uid;
+        request.resource.data.parentUid == request.auth.uid;
 
-      // Allow update if active and not expired
-      allow update: if request.auth != null && 
-        resource.data.used == false && 
-        request.time < resource.data.expiresAt;
+      // Allow delete if creator is deleting their own join code
+      allow delete: if request.auth != null && 
+        resource.data.parentUid == request.auth.uid;
     }
   }
 }

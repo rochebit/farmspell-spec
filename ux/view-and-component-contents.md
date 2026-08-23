@@ -180,7 +180,7 @@ This document defines the functional content, data fields, indicators, and user 
 - **6.2.2 Interactive Controls & Triggers**:
   - **6.2.2.1 Adjust Action Limit**: Slider or stepper modifying `maxActionsPerDay`.
   - **6.2.2.2 Switch Word Pack**: Dropdown/picker changing the active spelling curriculum.
-  - **6.2.2.3 Open Share Code Generator**: Action opening the Share Code modal to link a co-parent.
+  - **6.2.2.3 Authorize Co-Parent**: Action opening the Authorize Co-Parent modal to enter a co-parent's Join Code.
   - **6.2.2.4 Open Profile Switcher**: Action opening the multi-profile switcher.
   - **6.2.2.5 Save & Close**: Persists settings to Firestore and closes modal.
 
@@ -193,14 +193,23 @@ This document defines the functional content, data fields, indicators, and user 
 - **6.3.2 Interactive Controls & Triggers**:
   - **6.3.2.1 Select Active Profile Trigger**: Switches the active child profile and loads corresponding farm state.
   - **6.3.2.2 Create New Profile Trigger**: Opens child creation form (Name input field + avatar selection picker).
-  - **6.3.2.3 Redeem Share Code Trigger**: Opens 6-digit code input modal to link an existing child profile from another parent.
+  - **6.3.2.3 Connect to Child Trigger**: Opens Join Code Modal (`JoinCodeModal`) generating a 6-digit code for this parent to show to an existing parent.
 
-### 6.4 Share Code Modal (`ShareCodeModal`)
+### 6.4 Join Code Modal (`JoinCodeModal`)
 - **6.4.1 Data Displayed & Indicators**:
-  - **6.4.1.1 6-Digit Share Code Display**: Large, high-contrast display of the generated 6-digit alphanumeric code.
+  - **6.4.1.1 6-Digit Join Code Display**: Large, high-contrast display of the generated 6-digit alphanumeric code (e.g., `JOIN-8492`).
   - **6.4.1.2 Expiration Countdown Timer**: Displays remaining validity time (15-minute countdown from generation).
-  - **6.4.1.3 Instructions Text**: Simple instructions for the second parent ("Enter this code on another device within 15 minutes to link this profile").
+  - **6.4.1.3 Instructions Text**: Guidance: "Show this code to the parent already managing the farm so they can add you in Child Settings."
 - **6.4.2 Interactive Controls & Triggers**:
   - **6.4.2.1 Copy Code Trigger**: Copies the 6-digit code to device clipboard.
   - **6.4.2.2 Generate New Code Trigger**: Invalidates prior code and generates a fresh 15-minute code.
   - **6.4.2.3 Close Modal Trigger**: Dismisses modal.
+
+### 6.5 Authorize Co-Parent Modal (`AuthorizeCoParentModal`)
+- **6.5.1 Data Displayed & Indicators**:
+  - **6.5.1.1 Child Target Name**: Confirms which child profile is receiving the new authorized parent.
+  - **6.5.1.2 6-Digit Code Input Box**: Input area for entering the Join Code provided by the new parent.
+  - **6.5.1.3 Verification Feedback**: Status indicator confirming parent name upon successful lookup before saving.
+- **6.5.2 Interactive Controls & Triggers**:
+  - **6.5.2.1 Submit Code Trigger**: Fetches `/joinCodes/{code}`, extracts `parentUid`, and appends UID to `authorizedParentUids`.
+  - **6.5.2.2 Cancel Trigger**: Closes modal without modifications.

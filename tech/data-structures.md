@@ -106,18 +106,17 @@ This document defines the core data structures, Firestore document schemas, and 
 }
 ```
 
-### 1.2 Share Code Schema (`/shareCodes/{codeId}`)
-- **1.2.1 Document Path**: `/shareCodes/{codeId}`
+### 1.2 Join Code Schema (`/joinCodes/{code}`)
+- **1.2.1 Document Path**: `/joinCodes/{code}` (where `code` is a 6-digit alphanumeric string, e.g., `"JOIN-8492"`)
 - **1.2.2 Schema Definition**:
 
 ```json
 {
-  "codeId": "FARM-8492",
-  "playerId": "player_liam_8912",
-  "createdByUid": "uid_parent_1",
+  "code": "JOIN-8492",
+  "parentUid": "uid_parent_b",
+  "parentDisplayName": "Sarah",
   "createdAt": 1770634800000,
-  "expiresAt": 1770721200000,
-  "used": false
+  "expiresAt": 1770635700000
 }
 ```
 

@@ -229,17 +229,24 @@ This document defines the automated test suites, acceptance criteria, edge-case 
   - **When**: Attempting to read or write `/players/{playerId}` where `"stranger_uid_999"` is NOT in `authorizedParentUids`.
   - **Then**: Firestore Security Rules MUST reject the request with `PERMISSION_DENIED`.
 
-### 6.2 Share Code Lifecycle
-- **6.2.1 Test Case: 15-Minute Share Code Expiration**:
-  - **Given**: A share code generated at timestamp `T0` with `expiresAt: T0 + 15 minutes`.
-  - **When**: A second parent attempts to redeem the code at `T0 + 16 minutes`.
+### 6.2 Join Code Handshake & Security Verification
+- **6.2.1 Test Case: Collection Enumeration / List Denial**:
+  - **Given**: Authenticated user with `auth.uid == "user_any"`.
+  - **When**: Attempting to query, scan, or list documents in `/joinCodes` (`getDocs(collection(db, "joinCodes"))`).
+  - **Then**: Firestore Security Rules MUST reject the query with `PERMISSION_DENIED`.
+- **6.2.2 Test Case: Exact Document Get Allowed**:
+  - **Given**: Active join code document at `/joinCodes/JOIN-8492` containing `parentUid: "parent_b"`.
+  - **When**: Authenticated parent user executes `getDoc(doc(db, "joinCodes", "JOIN-8492"))`.
+  - **Then**: Request MUST succeed and return the document data.
+- **6.2.3 Test Case: 15-Minute Join Code Expiration**:
+  - **Given**: A join code generated at timestamp `T0` with `expiresAt: T0 + 15 minutes`.
+  - **When**: Parent A attempts to process the code at `T0 + 16 minutes`.
+  - **Then**: Client-side check MUST reject the code as expired and NOT add `parentUid` to `authorizedParentUids`.
+- **6.2.4 Test Case: Successful Join Code Authorization Handshake**:
+  - **Given**: Unexpired join code `"JOIN-8492"` for Parent B (`auth.uid == "parent_2"`), and Parent A (`auth.uid == "parent_1"`) authorized on `player_abc`.
+  - **When**: Parent A enters `"JOIN-8492"` and submits.
   - **Then**:
-    - Redemption MUST fail with an "Expired code" error.
-    - The second parent's UID MUST NOT be added to `authorizedParentUids`.
-- **6.2.2 Test Case: Atomic Share Code Redemption**:
-  - **Given**: Valid unexpired share code `"K9X4M2"` for child profile `player_abc`.
-  - **When**: Second parent `auth.uid == "parent_2"` redeems `"K9X4M2"`.
-  - **Then**:
-    - `"parent_2"` MUST be added to `player_abc.authorizedParentUids`.
-    - The document `/shareCodes/K9X4M2` MUST be deleted or marked inactive.
-    - Attempting to reuse `"K9X4M2"` again MUST fail.
+    - Parent A client fetches `/joinCodes/JOIN-8492`, extracting `parentUid: "parent_2"`.
+    - Parent A client updates `/players/player_abc` appending `"parent_2"` to `authorizedParentUids`.
+    - Update succeeds because `"parent_1"` is already in `resource.data.authorizedParentUids`.
+    - Real-time snapshot on Parent B device receives `player_abc` in query results.

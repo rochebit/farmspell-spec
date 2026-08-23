@@ -30,9 +30,11 @@ This document specifies the technology stack, backend architecture, multi-parent
   ```
 - **2.3.2**: Access control is enforced by Firestore Security Rules (see [firestore-security-rules.md](firestore-security-rules.md)).
 
-### 2.4 Parent Linking via Share Code
-- **2.4.1**: An authorized parent can tap "Share Child Profile" to generate a short-lived 6-digit Share Code (e.g., `FARM-8492`).
-- **2.4.2**: A second parent enters the Share Code on their device, which appends their `auth.uid` to `authorizedParentUids` for that Player document.
+### 2.4 Parent Linking via Join Code Handshake
+- **2.4.1**: When a new parent (Parent B) signs into their device, they tap "Connect to a Child" to generate a short-lived 6-digit Join Code (e.g., `JOIN-8492`, valid for 15 minutes) saved in `/joinCodes/{code}` containing Parent B's UID and display name.
+- **2.4.2**: Parent B shares the 6-digit code with an existing authorized parent (Parent A).
+- **2.4.3**: Parent A enters the code in their Child Settings. Parent A's client fetches `/joinCodes/{code}` by its exact ID, extracts Parent B's UID, and directly updates `/players/{playerId}` by appending Parent B's UID to `authorizedParentUids`.
+- **2.4.4**: Because Parent A is already authorized on `/players/{playerId}`, this write executes client-side without requiring Cloud Functions or security rule bypasses. Parent B's real-time query instantly discovers the linked child profile.
 
 ## 3 Offline Execution & Audio Storage Boundaries
 

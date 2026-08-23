@@ -1,26 +1,26 @@
-# Component Specification: ShareCodeModal
+# Component Specification: JoinCodeModal
 
-The `ShareCodeModal` enables a parent to generate a temporary 6-digit alphanumeric code to share access to a child's profile with another parent across devices.
+The `JoinCodeModal` enables a new parent to generate a temporary 6-digit alphanumeric Join Code (e.g., `"JOIN-8492"`) to show to an existing parent already managing a child's farm.
 
 ## 1 Component Inputs & State
 
 ### 1.1 Props Interface
 - **1.1.1 `isOpen`**: `boolean` – Modal visibility state.
-- **1.1.2 `playerId`**: `string` – ID of the child profile being shared.
-- **1.1.3 `shareCode`**: `string | null` – Active 6-digit code string (e.g., `"K9X4M2"`).
-- **1.1.4 `expiresAt`**: `Date | null` – Timestamp when the active code expires.
+- **1.1.2 `parentUid`**: `string` – UID of the authenticated parent creating the code.
+- **1.1.3 `joinCode`**: `string | null` – Active 6-digit code string (e.g., `"JOIN-8492"`).
+- **1.1.4 `expiresAt`**: `Date | null` – Timestamp when the active code expires (15 minutes).
 
 ### 1.2 Event Handlers
-- **1.2.1 `onGenerateCode`**: `() => Promise<void>` – Creates a new 15-minute share code in Firestore `/shareCodes/{code}`.
+- **1.2.1 `onGenerateCode`**: `() => Promise<void>` – Creates a new 15-minute document in Firestore at `/joinCodes/{code}`.
 - **1.2.2 `onClose`**: `() => void` – Closes modal.
 
 ## 2 Contained Elements & Sub-Components
 
 ### 2.1 Code Display Card
-- **2.1.1 Title**: "Share Profile with Another Parent" (font: `Heading1`).
+- **2.1.1 Title**: "Connect to Child's Farm" (font: `Heading1`).
 - **2.1.2 Large Code Plaque**: High-contrast display of the 6-digit code in `40px` bold monospace letters (`--font-letter-slot`).
 - **2.1.3 Countdown Timer**: Live timer displaying remaining validity (e.g., `Expires in: 14:32`).
-- **2.1.4 Instructions Text**: Clear step-by-step guidance for the other parent to redeem the code in their profile manager.
+- **2.1.4 Instructions Text**: Clear guidance: "Show this code to the parent already managing the child's farm. They can enter it in Child Settings to add you."
 
 ### 2.2 Action Buttons
 - **2.2.1 Copy Code Button**: Copies code to clipboard with "Copied!" feedback badge.
