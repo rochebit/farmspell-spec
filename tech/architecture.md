@@ -13,7 +13,7 @@ This document specifies the technology stack, backend architecture, multi-parent
 ## 2 Firebase Backend & Multi-Parent Authorization
 
 ### 2.1 Firebase Authentication
-- **2.1.1**: Parents/Guardians sign in using Firebase Authentication (supporting Email/Password, Google Auth, or Apple Sign-In).
+- **2.1.1**: Parents/Guardians sign in using Firebase Authentication exclusively via **Google Sign-In** (`GoogleAuthProvider`). Email/password and other third-party auth providers are not supported.
 - **2.1.2**: Each authenticated parent receives a unique Firebase `auth.uid`.
 
 ### 2.2 Shared Player Model (`authorizedParentUids`)

@@ -10,8 +10,8 @@ This document defines the step-by-step functional user flows and interaction jou
 ```mermaid
 flowchart TD
     A[Launch App] --> B{Authenticated?}
-    B -- No --> C[Firebase Auth Sign-In / Register]
-    C --> D[Parent Account Created]
+    B -- No --> C[Google Sign-In Prompt]
+    C --> D[Parent Account Authenticated]
     B -- Yes --> E{Has Child Profiles?}
     D --> F[Create First Child Profile]
     E -- No --> F
@@ -23,7 +23,7 @@ flowchart TD
 
 - **1.1.2 Functional Steps**:
   - **Step 1**: App launches and checks Firebase Authentication state.
-  - **Step 2**: If unauthenticated, present Firebase Authentication screen (Email/Password, Google, or Apple Sign-In).
+  - **Step 2**: If unauthenticated, present Google Sign-In prompt/button.
   - **Step 3**: Upon authentication, query Firestore for profiles matching `authorizedParentUids`.
   - **Step 4**: If no profiles exist, present "Create Child Profile" modal (enter child name & select avatar icon).
   - **Step 5**: Creating the profile generates a new Firestore document at `/players/{playerId}` with starter coins, seeds, and initial farm grid state.
