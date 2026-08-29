@@ -8,7 +8,7 @@ This document provides a high-level overview of the user interfaces required for
 - **1.1.1**: **Kid-Friendly Simplicity**: Interfaces must be clear, uncluttered, and immediately understandable for elementary-age children.
 - **1.1.2**: **Immediate Visual Feedback**: Farm plot states, energy consumption, and spelling attempts must provide instant visual and audio feedback.
 - **1.1.3**: **Cross-Platform Input**: Seamlessly support touch interactions on mobile/iPad and physical keyboard/mouse input on desktop browsers.
-- **1.1.4**: **Detailed Content Specification**: For exhaustive item-by-item inventories of data fields and interaction triggers for each component, see [ux/view-and-component-contents.md](view-and-component-contents.md).
+- **1.1.4**: **Modular Component Architecture**: For view-level composition mapping, see [ux/view-and-component-contents.md](view-and-component-contents.md). For detailed input schemas, states, and event triggers of individual UI components, see [ux/components/](components/README.md).
 
 ## 2 Required Interface Views & Functional Components
 
