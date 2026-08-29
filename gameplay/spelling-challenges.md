@@ -28,10 +28,13 @@ This document defines the rules governing spelling prompts, input mechanisms, re
 - **2.1.2**: Audio is fetched from the active Profile's custom recordings in IndexedDB. If no custom recording exists for the word, the system automatically uses native browser Text-to-Speech (Web Speech API `window.speechSynthesis`).
 - **2.1.3**: An **Audio Replay Button** is present on screen at all times during the challenge. Tapping it re-plays the audio prompt instantly.
 
-### 2.2 Native OS Keyboard Focus Input
-- **2.2.1**: The Spelling Challenge uses the device's **Native OS Keyboard** (iPad system keyboard).
-- **2.2.2**: Upon opening the challenge, focus is automatically set to a hidden text input field, invoking the native soft keyboard.
-- **2.2.3**: As the child types, typed uppercase letter boxes populate on screen corresponding to the target word length.
+### 2.2 Native OS Keyboard Focus & Anti-Assistance Configuration
+- **2.2.1 Native Soft Keyboard Invocation**: The Spelling Challenge uses the device's native OS keyboard (e.g. iPadOS virtual keyboard / Android Gboard). Upon opening the challenge, focus is automatically set to a dedicated hidden text input receiver, raising the native keyboard.
+- **2.2.2 Letter Slot Mirroring**: As the child types, typed uppercase letter boxes populate on screen corresponding to the target word length.
+- **2.2.3 Anti-Assistance Requirements**: All browser and operating system keyboard assistance features—including auto-complete, auto-correct, predictive text suggestions, and spellcheck dictionaries—MUST be disabled so the challenge accurately assesses the player's spelling.
+- **2.2.4 Visual Viewport Centering & Soft Keyboard Clearance**:
+  - When the soft keyboard appears, the modal layout MUST dynamically constrain and center itself within the active visible viewport (`window.visualViewport`).
+  - All critical learning elements (Action Header, Audio Speaker Button, Letter Slots, Attempt Badges, and Dismiss/Backspace buttons) MUST remain 100% visible and centered within the visible space above the keyboard, with zero overlap, clipping, or occlusion by the soft keyboard.
 
 ## 3 Submission, Retries, Streak Tracking & Learning Assistance
 

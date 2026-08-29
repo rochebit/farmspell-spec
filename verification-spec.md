@@ -119,6 +119,17 @@ This document defines the automated test suites, acceptance criteria, edge-case 
   - **Then**:
     - The character MUST be ignored.
     - No letter slot MUST be filled and cursor MUST not advance.
+- **3.1.3 Test Case: Anti-Assistance Feature Suppression**:
+  - **Given**: An active Spelling Challenge modal.
+  - **When**: The player types characters on mobile or desktop keyboards.
+  - **Then**:
+    - The browser/OS MUST NOT display autocomplete suggestions, predictive word candidate bars, autocorrect replacements, or spellcheck error popups.
+- **3.1.4 Test Case: Soft Keyboard Visual Viewport Centering**:
+  - **Given**: An active Spelling Challenge modal rendered on a mobile or tablet viewport.
+  - **When**: The soft OS keyboard opens (reducing `window.visualViewport.height`).
+  - **Then**:
+    - The modal container bounding box MUST remain strictly contained within the active `visualViewport`.
+    - The Action Header, Audio Replay Button, Letter Slots, Attempt Badges, and Action/Backspace Buttons MUST NOT be overlapped or occluded by the soft keyboard.
 
 ### 3.2 Attempt Progression & Flash Hint Overlay
 - **3.2.1 Test Case: First Failed Attempt Wiggle**:

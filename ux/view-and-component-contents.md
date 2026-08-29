@@ -91,10 +91,11 @@ This document defines the functional content, data fields, indicators, and user 
     - Full text of the target word.
     - Visual lockout timer (3.0 seconds) during which typing is disabled while audio is replayed.
   - **3.1.1.7 Audio Replay Button State**: Indicates whether audio is currently playing or ready to replay.
+  - **3.1.1.8 Visual Viewport Clearance Indicator**: Modal container is dynamically positioned and vertically centered within `window.visualViewport` to ensure 100% visibility of all prompts, slots, and buttons without soft keyboard overlap.
 - **3.1.2 Interactive Controls & Triggers**:
   - **3.1.2.1 Audio Replay Trigger**: Prominent button that replays the spoken word audio (custom recording if available, otherwise TTS fallback).
   - **3.1.2.2 Character Input Region**: Native keyboard focus receiver handling soft keyboard on touch devices and physical keypresses on desktop:
-    - Accepts alphabetical characters (`A-Z`, case-insensitive, displayed in uppercase).
+    - Disables all auto-complete, auto-correct, predictive text suggestions, and spellchecking assistance.
     - Auto-advances focus to the next empty slot upon keypress.
   - **3.1.2.3 Backspace / Delete Trigger**: Removes the last typed character and moves cursor focus back one slot.
   - **3.1.2.4 Submit Word Trigger**: Submits the completed word for validation upon reaching full word length or pressing Enter.

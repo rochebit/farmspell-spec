@@ -37,10 +37,14 @@ The `SpellingChallengeModal` is the core learning overlay presented whenever a f
   - Automatically triggers audio playback.
   - 3.0-second countdown lock preventing typing until audio finishes.
 
-### 2.4 Keyboard Focus Receiver & Controls
-- **2.4.1 Native Focus Receiver**: Hidden input capturing touch soft keyboard and physical keyboard events.
-- **2.4.2 On-Screen Backspace Button**: Tactile button (`56px × 56px`) with backspace glyph to delete the last character.
-- **2.4.3 Cancel Action Button**: Text button ("Cancel Action — Uses 1 Energy") to dismiss modal.
+### 2.4 Keyboard Focus Receiver, Anti-Assistance & Viewport Centering
+- **2.4.1 Native Focus Receiver**: Hidden input capturing soft touch keyboard and physical keyboard events with all operating system and browser auto-complete, auto-correct, predictive text, and spellcheck features disabled.
+- **2.4.2 Visual Viewport Centering (Zero Keyboard Overlap)**:
+  - The modal container is bound to the active **Visual Viewport** (`window.visualViewport` / CSS `dvh` / `interactive-widget=resizes-content`).
+  - When the soft OS keyboard deploys, the modal automatically recalculates its vertical bounds and centers itself within the visible portion of the screen above the keyboard.
+  - The Action Title, Audio Button, Word Letter Slots, Attempt Stars, and Controls must maintain 100% visibility with minimum 16px safety padding, ensuring no overlap or occlusion by the soft keyboard.
+- **2.4.3 On-Screen Backspace Button**: Tactile button (`56px × 56px`) with backspace glyph to delete the last character.
+- **2.4.4 Cancel Action Button**: Text button ("Cancel Action — Uses 1 Energy") to dismiss modal.
 
 ## 3 Visual States & Animations
 
@@ -48,7 +52,8 @@ The `SpellingChallengeModal` is the core learning overlay presented whenever a f
 - **3.1.1 Incorrect Attempt**: Entire slot container executes horizontal wiggle animation (`translateX(-8px) -> translateX(8px)` over `600ms`) with red border flash (`--color-feedback-error`).
 - **3.1.2 Success Resolution**: All letter slots turn vibrant green (`--color-feedback-success`) with star particle confetti burst before modal closes.
 - **3.1.3 Audio Playing State**: Pulsing concentric ripples around the audio speaker button.
+- **3.1.4 Visual Viewport Soft Keyboard Adaptation**: Smooth CSS transition on container position/padding when the virtual keyboard opens or closes, keeping the challenge perfectly centered in the visible area.
 
 ## 4 Visual HTML Mockup
 
-- **Live HTML Mock**: [mocks/spelling-challenge-modal.html](mocks/spelling-challenge-modal.html) demonstrates the learning modal overlay with uppercase letter slots, active cursor indicator, audio speaker button, attempt stars, and tactile control buttons.
+- **Live HTML Mock**: [mocks/spelling-challenge-modal.html](mocks/spelling-challenge-modal.html) demonstrates the learning modal overlay with uppercase letter slots, active cursor indicator, audio speaker button, attempt stars, tactile control buttons, and viewport centering logic.
