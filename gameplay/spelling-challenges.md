@@ -66,7 +66,18 @@ This document defines the rules governing spelling prompts, input mechanisms, re
   - Once the word display disappears, text input unlocks so the child can type the word.
   - Retries remain **unlimited**; the child can keep trying until they successfully type the word.
 
-### 3.3 Challenge Cancellation
-- **3.3.1**: If the player voluntarily cancels or exits an active Spelling Challenge modal before completing the word, the modal closes immediately.
-- **3.3.2**: Cancelling a challenge costs **1 Action Point** (`dailyActionsRemaining` decrements by 1).
-- **3.3.3**: The target farm plot remains in its previous state without changes.
+### 3.3 Granular Word List Mastery Tracking
+- **3.3.1 Word Mastery Points**: Each active curriculum word contributes up to **3 mastery points** based on its current consecutive correct streak:
+  - `streak == 0`: 0 points (0% contribution).
+  - `streak == 1`: 1 point (33.3% contribution).
+  - `streak == 2`: 2 points (66.7% contribution).
+  - `streak >= 3`: 3 points (100% full mastery contribution).
+- **3.3.2 Aggregate Mastery Ratio**: For an active word pool of $N$ words, total maximum points equal $3 \times N$. The granular mastery progress ratio is calculated as:
+  $$\text{Mastery Ratio} = \frac{\sum_{i=1}^N \min(\text{streak}_i, 3)}{3 \times N}$$
+- **3.3.3 Real-Time HUD Reflection**: The aggregate ratio drives the side [MasteryMeter](../ux/components/mastery-meter.md), visually advancing with every single correct first-try or retry streak advancement.
+- **3.3.4 100% Mastery Milestone**: When all words in the active list reach `streak >= 3` (`Mastery Ratio == 1.0`), the game triggers a mastery celebration animation.
+
+### 3.4 Challenge Cancellation
+- **3.4.1**: If the player voluntarily cancels or exits an active Spelling Challenge modal before completing the word, the modal closes immediately.
+- **3.4.2**: Cancelling a challenge costs **1 Action Point** (`dailyActionsRemaining` decrements by 1).
+- **3.4.3**: The target farm plot remains in its previous state without changes.

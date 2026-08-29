@@ -19,6 +19,7 @@ This directory contains individual specification documents for every reusable UI
 - **[farm-grid.md](farm-grid.md)** – 5x5 farm grid container managing 25 plot tile instances.
 - **[farm-plot-tile.md](farm-plot-tile.md)** – Individual farm plot tile rendering empty soil, growing crops, moisture, harvest glow, and withered states.
 - **[farmhouse-control.md](farmhouse-control.md)** – Farmhouse structure and day advancement bedtime trigger.
+- **[mastery-meter.md](mastery-meter.md)** – Vertical side-docked growth gauge providing granular visual progress toward active word list mastery.
 - **[seed-picker.md](seed-picker.md)** – Seed selection drawer allowing players to choose seeds to sow.
 
 ### 1.3 Spelling Challenge

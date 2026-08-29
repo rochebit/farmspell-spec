@@ -246,6 +246,19 @@ This document defines the automated test suites, acceptance criteria, edge-case 
     - Word 4 (Mastered: `streak: 3`) -> Weight MUST equal `5`.
   - **When**: Calculating candidate selection probabilities.
   - **Then**: The candidate weights MUST evaluate precisely to `40`, `30`, `20`, and `5`.
+- **3.4.6 Test Case: Granular Mastery Ratio Calculation**:
+  - **Given**: Active word pool of 3 words: `"CARROT"` (`streak: 3`), `"WATER"` (`streak: 1`), and `"SOIL"` (`streak: 0`).
+  - **When**: Calculating the aggregate `MasteryMeter` fill ratio.
+  - **Then**:
+    - Total points MUST equal `4` (`3 + 1 + 0`).
+    - Maximum points MUST equal `9` (`3 * 3`).
+    - Fill ratio MUST evaluate precisely to `4 / 9` (`~0.444`).
+- **3.4.7 Test Case: 100% Mastery Star Illumination**:
+  - **Given**: All active words in the curriculum have `streak >= 3`.
+  - **When**: Evaluating `MasteryMeter` state.
+  - **Then**:
+    - Fill ratio MUST equal `1.0`.
+    - Star topper element MUST transition to the illuminated state.
 
 ## 4 Economy & Shop Verification Suite
 
