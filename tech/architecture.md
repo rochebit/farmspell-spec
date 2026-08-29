@@ -16,6 +16,11 @@ This document specifies the technology stack, backend architecture, multi-parent
   - Automatically increments with every new commit.
 - **1.2.2 Build-Time Injection**: Vite injects the version string at build/runtime via `define: { __APP_VERSION__: JSON.stringify(version) }` or `import.meta.env.VITE_APP_VERSION`.
 - **1.2.3 Persistent Screen Display**: The application renders the version string in the bottom corner of the main viewport to provide immediate visibility of whether the client is running the latest deployment.
+- **1.2.4 Manual Force Update & Cache-Purge Routine**: Tapping the `VersionBadge` executes an immediate client cache bust:
+  - **Cache Purge**: Wipes all entries in browser `CacheStorage` (`caches.delete()`).
+  - **Service Worker Reset**: Unregisters existing Service Worker registrations (`registration.unregister()`) or posts `SKIP_WAITING`.
+  - **Hard Navigation Reload**: Forces a cache-bypassing navigation reload (`window.location.href = origin + pathname + '?t=' + Date.now()`).
+  - **Data Safety**: Preserves all local player profile and audio storage (`IndexedDB` / Firestore offline database) untouched during cache purge.
 
 ## 2 Firebase Backend & Multi-Parent Authorization
 

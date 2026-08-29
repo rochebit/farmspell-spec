@@ -35,6 +35,14 @@ This document defines the automated test suites, acceptance criteria, edge-case 
   - **Then**:
     - A `VersionBadge` element MUST be rendered in the bottom corner of the viewport.
     - The displayed text MUST match the build/commit version string injected at build time (e.g., `v0.1.<count> (<hash>)`).
+- **1.1.5 Test Case: Manual Force Update Cache-Purge Execution**:
+  - **Given**: The user taps the `VersionBadge` in the bottom corner.
+  - **When**: The force update routine executes.
+  - **Then**:
+    - The app MUST purge all entries in `window.caches`.
+    - Active service workers MUST be unregistered or instructed to skip waiting.
+    - The browser MUST execute a hard cache-busting reload.
+    - Player save state in `IndexedDB` / Firestore MUST remain preserved.
 
 ### 1.2 Day Advancement & Sleep Processing
 - **1.2.1 Test Case: Normal Bedtime Advancement**:
