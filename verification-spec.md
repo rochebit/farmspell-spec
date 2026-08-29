@@ -29,6 +29,12 @@ This document defines the automated test suites, acceptance criteria, edge-case 
     - No spelling challenge modal MUST open.
     - An energy-depleted toast/prompt MUST appear directing the player to sleep at the Farmhouse.
     - `currentActions` MUST remain `0`.
+- **1.1.4 Test Case: Persistent Build Version Indicator Rendering**:
+  - **Given**: The game application running in any view.
+  - **When**: Inspecting the viewport overlays.
+  - **Then**:
+    - A `VersionBadge` element MUST be rendered in the bottom corner of the viewport.
+    - The displayed text MUST match the build/commit version string injected at build time (e.g., `v0.1.<count> (<hash>)`).
 
 ### 1.2 Day Advancement & Sleep Processing
 - **1.2.1 Test Case: Normal Bedtime Advancement**:

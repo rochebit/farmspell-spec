@@ -10,6 +10,13 @@ This document specifies the technology stack, backend architecture, multi-parent
 - **1.1.3**: **Backend Cloud Services**: Firebase Authentication & Cloud Firestore database.
 - **1.1.4**: **Device-Local Storage**: Browser `localStorage` (for device settings) & `IndexedDB` (for local custom audio Blobs).
 
+### 1.2 Automated Build Versioning & Commit Tracking
+- **1.2.1 Version Generation**: Every build and development instance dynamically derives an incremental version string tied to the latest Git commit:
+  - Format: `v0.1.<commitCount> (<shortHash>)` (e.g., `v0.1.48 (b4e79a6)`).
+  - Automatically increments with every new commit.
+- **1.2.2 Build-Time Injection**: Vite injects the version string at build/runtime via `define: { __APP_VERSION__: JSON.stringify(version) }` or `import.meta.env.VITE_APP_VERSION`.
+- **1.2.3 Persistent Screen Display**: The application renders the version string in the bottom corner of the main viewport to provide immediate visibility of whether the client is running the latest deployment.
+
 ## 2 Firebase Backend & Multi-Parent Authorization
 
 ### 2.1 Firebase Authentication
