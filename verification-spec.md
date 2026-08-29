@@ -43,6 +43,18 @@ This document defines the automated test suites, acceptance criteria, edge-case 
     - Active service workers MUST be unregistered or instructed to skip waiting.
     - The browser MUST execute a hard cache-busting reload.
     - Player save state in `IndexedDB` / Firestore MUST remain preserved.
+- **1.1.6 Test Case: Mobile Debug Log Overlay Activation**:
+  - **Given**: The app is loaded with URL query `?debug=true` or `?dev=true`.
+  - **When**: Inspecting viewport overlays.
+  - **Then**:
+    - `DebugLogOverlay` floating trigger MUST be rendered in the DOM.
+    - `sessionStorage.farmspell_debug_mode` MUST equal `"true"`.
+    - Captured logs from `console.log`, `console.warn`, and `console.error` MUST populate the log list.
+- **1.1.7 Test Case: Debug Mode Inactivity on Standard URL**:
+  - **Given**: The app is loaded on a clean URL without debug parameters and empty `sessionStorage`.
+  - **When**: Inspecting viewport overlays.
+  - **Then**:
+    - `DebugLogOverlay` MUST NOT be rendered in the DOM.
 
 ### 1.2 Day Advancement & Sleep Processing
 - **1.2.1 Test Case: Normal Bedtime Advancement**:

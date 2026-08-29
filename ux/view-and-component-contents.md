@@ -10,7 +10,7 @@ This document specifies how **FarmSpell** assembles modular UI components into c
   - **Header Region**: Contains [StatusBar](components/status-bar.md) anchored to the top of the viewport.
   - **Center Playfield**: Contains [FarmGrid](components/farm-grid.md) (rendering 25 [FarmPlotTile](components/farm-plot-tile.md) instances).
   - **Farmhouse Area**: Contains [FarmhouseControl](components/farmhouse-control.md) positioned adjacent to the grid.
-  - **Global Overlay Region**: Host container for [ToastNotification](components/toast-notification.md) alerts and the persistent bottom-corner [VersionBadge](components/version-badge.md).
+  - **Global Overlay Region**: Host container for [ToastNotification](components/toast-notification.md) alerts, the persistent bottom-corner [VersionBadge](components/version-badge.md), and the mobile [DebugLogOverlay](components/debug-log-overlay.md) (when active).
 - **1.1.3 Child Modals & Drawers**:
   - [SeedPicker](components/seed-picker.md) (draws upward upon tapping an empty plot).
   - [SpellingChallengeModal](components/spelling-challenge-modal.md) (invoked on actionable plot interactions).

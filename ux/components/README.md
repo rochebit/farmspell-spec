@@ -12,6 +12,7 @@ This directory contains individual specification documents for every reusable UI
 ### 1.1 Navigation & Global
 - **[status-bar.md](status-bar.md)** – Top status bar displaying child profile, coin total, daily Action Point meter, day count, and navigation shortcuts.
 - **[version-badge.md](version-badge.md)** – Persistent bottom-corner build version indicator displaying the automated Git commit/build version.
+- **[debug-log-overlay.md](debug-log-overlay.md)** – Floating on-screen mobile debug console and log viewer activated via `?debug=true` / `?dev=true`.
 - **[toast-notification.md](toast-notification.md)** – Non-blocking feedback toast notifications with auto-dismiss timers.
 
 ### 1.2 Farm & Environment

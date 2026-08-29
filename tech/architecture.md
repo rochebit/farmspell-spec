@@ -22,6 +22,16 @@ This document specifies the technology stack, backend architecture, multi-parent
   - **Hard Navigation Reload**: Forces a cache-bypassing navigation reload (`window.location.href = origin + pathname + '?t=' + Date.now()`).
   - **Data Safety**: Preserves all local player profile and audio storage (`IndexedDB` / Firestore offline database) untouched during cache purge.
 
+### 1.3 Mobile Debug Console & Diagnostics
+- **1.3.1 Activation via URL Parameter**: Debug mode activates whenever the URL contains query parameter `?debug=true` or `?dev=true` (e.g., `https://farmspell.app/?debug=true`).
+- **1.3.2 Session Persistence**: When activated via URL, debug mode state is persisted in `sessionStorage` (`farmspell_debug_mode = "true"`) so subsequent internal navigations and reloads retain debug logging until the browser session ends.
+- **1.3.3 Console Interception & Error Trapping**:
+  - The client intercepts all calls to `console.log`, `console.info`, `console.warn`, `console.error`, as well as global `window.onerror` and `window.onunhandledrejection` events.
+  - Native console logging behavior is preserved.
+  - Captured log objects store `timestamp: number`, `level: 'log' | 'info' | 'warn' | 'error'`, `message: string`, and `stack?: string`.
+- **1.3.4 Memory Cap (Ring Buffer)**: Captured logs are held in a fixed-size ring buffer capped at **300 entries** to prevent memory leaks during long mobile play sessions.
+- **1.3.5 On-Screen Diagnostics Overlay**: When active, renders a collapsible on-screen debug panel (`DebugLogOverlay`) with log filtering, live log streaming, and single-tap copy-to-clipboard for iPad/mobile troubleshooting.
+
 ## 2 Firebase Backend & Multi-Parent Authorization
 
 ### 2.1 Firebase Authentication
