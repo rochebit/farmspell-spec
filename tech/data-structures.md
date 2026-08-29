@@ -21,6 +21,7 @@ This document defines the core data structures, Firestore document schemas, and 
     "createdAt",
     "farmState",
     "inventory",
+    "unlockedCropIds",
     "activeWordPackIds"
   ],
   "properties": {
@@ -97,6 +98,12 @@ This document defines the core data structures, Firestore document schemas, and 
           "additionalProperties": { "type": "integer", "minimum": 0 }
         }
       }
+    },
+    "unlockedCropIds": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": ["crop_wheat"],
+      "description": "Array of cropId strings permanently unlocked for purchase in the Shop"
     },
     "activeWordPackIds": {
       "type": "array",

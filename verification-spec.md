@@ -15,6 +15,7 @@ This document defines the automated test suites, acceptance criteria, edge-case 
     - `plots` array MUST contain exactly `25` elements with indices `0` through `24`, all with `state: "Empty"`.
     - `seedInventory` MUST equal `{"crop_wheat": 3}` (with other crop seed counts at `0`).
     - `harvestedCropInventory` MUST be empty or have `0` for all crops.
+    - `unlockedCropIds` MUST equal `["crop_wheat"]`.
 - **1.1.2 Test Case: Action Point Decrement on Farm Action**:
   - **Given**: `currentActions == 5`.
   - **When**: The player successfully completes a farm action (Plant, Water, Harvest, or Clear).
@@ -211,31 +212,53 @@ This document defines the automated test suites, acceptance criteria, edge-case 
 
 ## 4 Economy & Shop Verification Suite
 
-### 4.1 Seed Purchasing Verification
-- **4.1.1 Test Case: Successful Seed Purchase**:
-  - **Given**: `coins == 50`, `seedInventory.crop_tomato == 0`, `currentActions == 3`.
+### 4.1 Seed Unlocking Verification
+- **4.1.1 Test Case: Successful Seed Unlock Consumes Crops**:
+  - **Given**: `unlockedCropIds == ["crop_wheat"]`, `harvestedCropInventory.crop_wheat == 12`.
+  - **When**: Player taps "Unlock Seed" on Oat (`crop_oat`, requires `9x crop_wheat`).
+  - **Then**:
+    - `harvestedCropInventory.crop_wheat` MUST update to `3` (`12 - 9`).
+    - `unlockedCropIds` MUST contain `"crop_oat"`.
+    - 0 coins deducted, 0 energy cost, 0 spelling challenges.
+    - The Oat card in the Shop MUST transition immediately to Unlocked state.
+- **4.1.2 Test Case: Insufficient Harvested Crops Lockout**:
+  - **Given**: `harvestedCropInventory.crop_wheat == 5` (requires 9).
+  - **When**: Player views Oat seeds (`crop_oat`) in the Shop.
+  - **Then**:
+    - The Unlock button MUST be disabled.
+    - Tapping MUST NOT deduct crops and MUST NOT unlock the seed.
+- **4.1.3 Test Case: Locked Seed Purchasing Prevention**:
+  - **Given**: `unlockedCropIds == ["crop_wheat"]`, `coins == 100`.
+  - **When**: Player attempts to purchase Carrot seeds (`crop_carrot`).
+  - **Then**:
+    - No purchase button MUST be available for locked seeds (only Unlock button is presented).
+    - Client MUST NOT allow purchasing locked crop seeds.
+
+### 4.2 Seed Purchasing Verification
+- **4.2.1 Test Case: Successful Seed Purchase**:
+  - **Given**: `unlockedCropIds` contains `"crop_tomato"`, `coins == 50`, `seedInventory.crop_tomato == 0`, `currentActions == 3`.
   - **When**: Player purchases 1 Tomato seed packet (`crop_tomato`, cost `12` coins).
   - **Then**:
     - `coins` MUST update to `38` (`50 - 12`).
     - `seedInventory.crop_tomato` MUST update to `1`.
     - `currentActions` MUST remain `3` (0 energy cost).
     - 0 spelling challenges MUST be prompted.
-- **4.1.2 Test Case: Insufficient Funds Guard**:
-  - **Given**: `coins == 5`.
+- **4.2.2 Test Case: Insufficient Funds Guard**:
+  - **Given**: `coins == 5`, `unlockedCropIds` contains `"crop_tomato"`.
   - **When**: Player views Tomato seeds (`crop_tomato`, cost `12` coins).
   - **Then**:
     - Purchase button MUST be disabled with gray styling.
     - Tapping MUST NOT deduct coins and MUST NOT grant seeds.
 
-### 4.2 Crop Selling Verification
-- **4.2.1 Test Case: Single Crop Sell**:
+### 4.3 Crop Selling Verification
+- **4.3.1 Test Case: Single Crop Sell**:
   - **Given**: `coins == 100`, `harvestedCropInventory.crop_carrot == 3` (unit value `8` coins).
   - **When**: Player taps "Sell Carrots".
   - **Then**:
     - `coins` MUST update to `124` (`100 + (3 * 8)`).
     - `harvestedCropInventory.crop_carrot` MUST update to `0`.
     - 0 energy cost and 0 spelling challenges.
-- **4.2.2 Test Case: Bulk "Sell All" Action**:
+- **4.3.2 Test Case: Bulk "Sell All" Action**:
   - **Given**: `coins == 0`, `harvestedCropInventory` containing 2 Carrots (`8` ea), 2 Tomatoes (`24` ea), and 1 Corn (`18` ea).
   - **When**: Player taps "Sell All Crops".
   - **Then**:

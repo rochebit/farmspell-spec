@@ -156,3 +156,34 @@ flowchart TD
   - **Step 6**: Tap `Save Word List`. The list is committed to the child profile's `customWordLists` array in Firestore, immediately syncing across all authorized parents' devices.
   - **Step 7**: A prompt asks: "Would you like to record your voice for these words now?". Selecting "Yes" seamlessly routes the parent to `AudioStudioView` with the newly created list pre-selected.
   - **Step 8**: The custom list's `isActive` toggle ensures the new words are immediately included in the farm's spelling challenge rotation.
+
+## 6 Seed Unlock & Marketplace Purchasing Flow
+
+### 6.1 Unlocking & Purchasing New Seeds
+- **6.1.1 Flow Diagram**:
+
+```mermaid
+flowchart TD
+    A[Player Opens Shop Modal] --> B[View Seed Storefront Tab]
+    B --> C{Crop in unlockedCropIds?}
+    C -- Yes --> D{Coins >= Seed Cost?}
+    D -- Yes --> E[Tap 'Buy 1' -> Deduct Coins & Add Seed to Inventory]
+    D -- No --> F[Buy Button Disabled - Insufficient Coins]
+    C -- No --> G[Render Locked Card with Prerequisite Crop Checklist]
+    G --> H{Holds all required crops in Inventory?}
+    H -- No --> I[Unlock Button Disabled - Missing Harvested Crops]
+    H -- Yes --> J[Tap 'Unlock Seed']
+    J --> K[Deduct Prerequisite Crops from Inventory]
+    K --> L[Append Crop ID to unlockedCropIds in Firestore]
+    L --> M[Sparkle Fanfare Animation -> Card Converts to Unlocked]
+    M --> D
+```
+
+- **6.1.2 Functional Steps**:
+  - **Step 1**: Player opens the Shop modal from the top HUD.
+  - **Step 2**: The Seed Storefront displays all 20 catalog crops organized by tier.
+  - **Step 3**: For crops not yet unlocked, the card displays required prerequisite crops and the player's held quantities.
+  - **Step 4**: When the player holds sufficient crops, the "Unlock Seed" button activates.
+  - **Step 5**: Tapping "Unlock Seed" immediately deducts the required crop quantities from inventory and appends the crop ID to `unlockedCropIds`.
+  - **Step 6**: A celebration sparkle animation plays, and the seed card converts into an active purchasable item.
+  - **Step 7**: The player can now purchase seed packets using Coins at any time.

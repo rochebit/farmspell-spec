@@ -112,15 +112,20 @@ This document defines the functional content, data fields, indicators, and user 
 
 ### 4.2 Seed Storefront Tab (`SeedStorefront`)
 - **4.2.1 Data Displayed & Indicators**:
-  - **4.2.1.1 Seed Catalog Items**: For each crop type (`Carrot`, `Tomato`, `Corn`, `Strawberry`, `Pumpkin`):
+  - **4.2.1.1 Unlocked Seed Items**: For each crop in `unlockedCropIds`:
     - Crop name and seed packet icon.
     - Seed purchase cost in coins.
     - Growth duration in days.
     - Harvest selling value in coins.
-    - Currently owned seed quantity.
+    - Currently owned seed quantity in inventory.
     - Affordability state (enabled if `coins >= cost`, disabled if `coins < cost`).
+  - **4.2.1.2 Locked Seed Items**: For each crop not in `unlockedCropIds`:
+    - Desaturated crop graphic with padlock badge.
+    - Prerequisite crop checklist showing current inventory count vs required amount (e.g. `🌾 5/9 Wheat`).
+    - Unlock Eligibility State (enabled when all prerequisite crop counts are met, disabled if any are insufficient).
 - **4.2.2 Interactive Controls & Triggers**:
-  - **4.2.2.1 Purchase Seed Trigger**: Deducts purchase price from coins and adds 1 seed packet to player inventory (0 Action Point cost, 0 spelling challenges).
+  - **4.2.2.1 Unlock Seed Trigger**: Consumes the required prerequisite crops from inventory and adds the crop to `unlockedCropIds` (0 Action Point cost, 0 spelling challenges).
+  - **4.2.2.2 Purchase Seed Trigger**: Deducts purchase price from coins and adds 1 seed packet to player inventory (0 Action Point cost, 0 spelling challenges).
 
 ### 4.3 Crop Selling Tab (`CropSellingShelf`)
 - **4.3.1 Data Displayed & Indicators**:
